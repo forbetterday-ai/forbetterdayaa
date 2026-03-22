@@ -33,8 +33,8 @@ BLOOMBERG_FEEDS = {
 
 # ===== Reuters =====
 REUTERS_FEEDS = {
-    'Reuters Business': 'https://feeds.reuters.com/reuters/businessNews',
-    'Reuters Markets': 'https://feeds.reuters.com/reuters/marketsNews',
+    'Reuters Business': 'https://rss.app/feeds/26v2BmTDY6p2UAci.xml',
+    'Reuters Markets': 'https://rss.app/feeds/ll09owyV9vLoceC6.xml',
 }
 
 # ===== TechCrunch =====
