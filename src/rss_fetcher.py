@@ -81,7 +81,6 @@ MK_FEEDS = {
 # ===== 한국경제 =====
 HANKYUNG_FEEDS = {
     'HK 경제': 'https://www.hankyung.com/feed/economy',
-    'HK 산업': 'https://www.hankyung.com/feed/industry',
     'HK 금융': 'https://www.hankyung.com/feed/finance',
     'HK IT': 'https://www.hankyung.com/feed/it',
     'HK 전체': 'https://www.hankyung.com/feed/all-news',
