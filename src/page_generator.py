@@ -10,6 +10,20 @@ from src.rss_fetcher import get_feed_status
 
 logger = setup_logger(__name__)
 
+# 소스 그룹 매핑
+SOURCE_GROUPS = {
+    'FT': ['FT Markets', 'FT Companies', 'FT Technology', 'FT World', 'FT US', 'FT Opinion', 'FT Global Economy'],
+    'Bloomberg': ['BBG Markets', 'BBG Technology', 'BBG Politics', 'BBG Economics', 'BBG Industries'],
+    'Reuters': ['Reuters Business', 'Reuters Markets'],
+    'TechCrunch': ['TechCrunch', 'TC Startups', 'TC AI', 'TC Venture'],
+    'Space': ['SpaceNews', 'Space.com', 'Payload Space', 'Satellite Today'],
+    'Defense': ['Breaking Defense', 'Defense News', 'Defense One', 'DefenseScoop', 'Air & Space Forces', 'Space & Defense'],
+    'Ars Technica': ['Ars Technica'],
+    '매경': ['MK 헤드라인', 'MK 경제', 'MK 금융', 'MK 기업', 'MK 증권', 'MK IT'],
+    '한경': ['HK 경제', 'HK 산업', 'HK 금융', 'HK IT', 'HK 전체'],
+    '조선': ['조선 헤드라인', '조선 정치', '조선 사회'],
+}
+
 
 def _extract_date_str(pub_date: str) -> str:
     """pub_date 문자열에서 날짜(YYYY년 MM월 DD일) 추출"""
@@ -19,10 +33,15 @@ def _extract_date_str(pub_date: str) -> str:
     return ""
 
 
+def _get_source_group(section_name: str) -> str:
+    """섹션 이름으로 소스 그룹 반환"""
+    for group, sections in SOURCE_GROUPS.items():
+        if section_name in sections:
+            return group
+    return "기타"
+
+
 def generate_briefing_page(articles_by_section: dict):
-    """
-    브리핑 데이터를 정적 HTML 페이지로 생성
-    """
     now = datetime.now(KST)
     date_str = now.strftime('%Y년 %m월 %d일')
     time_str = now.strftime('%H:%M')
@@ -34,15 +53,10 @@ def generate_briefing_page(articles_by_section: dict):
     # 피드 상태
     status = get_feed_status()
     unavailable_feeds = [k for k, v in status.items() if v in ('unavailable', 'error')]
-
     status_html = ""
     if unavailable_feeds:
         feeds_list = ", ".join(unavailable_feeds)
-        status_html = f'''
-        <div class="status-alert">
-            ⚠️ RSS 피드 접속 불가: {feeds_list} — 해당 소스의 RSS 서비스가 중단되었거나 접속이 차단된 상태입니다.
-        </div>
-        '''
+        status_html = f'<div class="status-alert">⚠️ RSS 피드 접속 불가: {feeds_list} — 해당 소스의 RSS 서비스가 중단되었거나 접속이 차단된 상태입니다.</div>'
 
     # 날짜 목록 수집
     all_dates = set()
@@ -53,15 +67,31 @@ def generate_briefing_page(articles_by_section: dict):
                 all_dates.add(d)
     sorted_dates = sorted(all_dates, reverse=True)
 
-    # 날짜 필터 버튼 생성
-    date_buttons = '<button class="date-btn active" onclick="filterDate(\'all\')">전체</button>'
+    # 날짜 필터 버튼
+    date_buttons = '<button class="filter-btn date-btn active" onclick="filterDate(\'all\')">전체</button>'
     for d in sorted_dates:
-        date_buttons += f'<button class="date-btn" onclick="filterDate(\'{d}\')">{d}</button>'
+        date_buttons += f'<button class="filter-btn date-btn" onclick="filterDate(\'{d}\')">{d}</button>'
+
+    # 소스 그룹 필터 버튼 + 기사 수 계산
+    source_buttons = '<button class="filter-btn source-btn active" onclick="filterSource(\'all\')">Show All</button>'
+    for group_name, section_list in SOURCE_GROUPS.items():
+        count = 0
+        for s in section_list:
+            if s in articles_by_section:
+                count += len(articles_by_section[s])
+        if count > 0:
+            source_buttons += f'<button class="filter-btn source-btn" onclick="filterSource(\'{group_name}\')">{group_name} <strong>{count}</strong></button>'
+
+    # 섹션별 통계 pill
+    section_stats = ""
+    for section, articles in articles_by_section.items():
+        section_stats += f'<span class="stat-pill">{section} <strong>{len(articles)}</strong></span>'
 
     # 기사 HTML 생성
     articles_html = ""
     for section, articles in articles_by_section.items():
-        articles_html += f'<div class="section-group">'
+        source_group = _get_source_group(section)
+        articles_html += f'<div class="section-group" data-source="{source_group}">'
         articles_html += f'<div class="section-label">{section}</div>'
 
         for article in articles:
@@ -83,7 +113,7 @@ def generate_briefing_page(articles_by_section: dict):
                 sub_html = ''
 
             articles_html += f'''
-            <a href="{link}" target="_blank" class="article-card {"watchlist" if has_watchlist else ""}" data-date="{article_date}">
+            <a href="{link}" target="_blank" class="article-card {"watchlist" if has_watchlist else ""}" data-date="{article_date}" data-source="{source_group}">
                 <div class="article-header">
                     <div class="article-title">{main_title}</div>
                     {watchlist_badge}
@@ -96,11 +126,6 @@ def generate_briefing_page(articles_by_section: dict):
             '''
 
         articles_html += '</div>'
-
-    # 섹션 통계
-    section_stats = ""
-    for section, articles in articles_by_section.items():
-        section_stats += f'<span class="stat-pill">{section} <strong>{len(articles)}</strong></span>'
 
     html = f'''<!DOCTYPE html>
 <html lang="ko">
@@ -136,6 +161,9 @@ def generate_briefing_page(articles_by_section: dict):
             border-bottom: 1px solid var(--border);
             padding: 2rem 0;
             background: linear-gradient(180deg, #111 0%, var(--bg-primary) 100%);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }}
         .container {{
             max-width: 900px;
@@ -146,7 +174,7 @@ def generate_briefing_page(articles_by_section: dict):
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }}
         .brand {{
             font-family: 'Playfair Display', serif;
@@ -175,23 +203,11 @@ def generate_briefing_page(articles_by_section: dict):
             color: var(--text-primary);
             line-height: 1;
         }}
-        .stats-bar {{
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }}
-        .stat-pill {{
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            padding: 0.25rem 0.75rem;
-            border-radius: 100px;
-        }}
-        .stat-pill strong {{
-            color: var(--accent);
-            margin-left: 0.25rem;
+        .update-time {{
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
         }}
         .total-count {{
             font-family: 'JetBrains Mono', monospace;
@@ -200,27 +216,29 @@ def generate_briefing_page(articles_by_section: dict):
             background: var(--accent-dim);
             padding: 0.25rem 0.75rem;
             border-radius: 100px;
+            margin-bottom: 0.5rem;
+            display: inline-block;
         }}
-        .status-alert {{
-            margin-top: 1rem;
-            padding: 0.75rem 1rem;
-            background: rgba(212, 68, 42, 0.08);
-            border: 1px solid rgba(212, 68, 42, 0.2);
-            border-radius: 8px;
-            font-size: 0.8rem;
-            color: var(--watchlist);
-            line-height: 1.5;
-        }}
-        .date-filter {{
+        .filter-row {{
             display: flex;
-            gap: 0.5rem;
+            gap: 0.4rem;
             flex-wrap: wrap;
-            margin-top: 1rem;
+            align-items: center;
+            margin-bottom: 0.5rem;
         }}
-        .date-btn {{
+        .filter-label {{
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            padding: 0.4rem 0.8rem;
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-right: 0.3rem;
+            flex-shrink: 0;
+        }}
+        .filter-btn {{
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            padding: 0.35rem 0.7rem;
             border: 1px solid var(--border);
             border-radius: 6px;
             background: var(--bg-card);
@@ -228,18 +246,56 @@ def generate_briefing_page(articles_by_section: dict):
             cursor: pointer;
             transition: all 0.2s ease;
         }}
-        .date-btn:hover {{
+        .filter-btn:hover {{
             border-color: var(--accent-dim);
             color: var(--text-primary);
         }}
-        .date-btn.active {{
+        .filter-btn.active {{
             background: var(--accent-dim);
             border-color: var(--accent);
             color: var(--accent);
             font-weight: 500;
         }}
-        .main {{ padding: 2rem 0 4rem; }}
-        .section-group {{ margin-bottom: 2.5rem; }}
+        .filter-btn strong {{
+            color: var(--accent);
+            margin-left: 0.2rem;
+        }}
+        .stats-row {{
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }}
+        .stat-pill {{
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            background: transparent;
+            border: 1px solid var(--border);
+            padding: 0.2rem 0.5rem;
+            border-radius: 100px;
+        }}
+        .stat-pill strong {{
+            color: var(--text-secondary);
+            margin-left: 0.15rem;
+        }}
+        .filter-count {{
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--accent);
+            margin-top: 0.5rem;
+        }}
+        .status-alert {{
+            margin-top: 0.75rem;
+            padding: 0.6rem 0.8rem;
+            background: rgba(212, 68, 42, 0.08);
+            border: 1px solid rgba(212, 68, 42, 0.2);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: var(--watchlist);
+            line-height: 1.4;
+        }}
+        .main {{ padding: 1.5rem 0 4rem; }}
+        .section-group {{ margin-bottom: 2rem; }}
         .section-group.hidden {{ display: none; }}
         .section-label {{
             font-family: 'JetBrains Mono', monospace;
@@ -250,14 +306,14 @@ def generate_briefing_page(articles_by_section: dict):
             letter-spacing: 0.2em;
             padding: 0.5rem 0;
             border-bottom: 1px solid var(--border);
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
         }}
         .article-card {{
             display: block;
             text-decoration: none;
             color: inherit;
-            padding: 1rem;
-            margin-bottom: 0.25rem;
+            padding: 0.8rem 1rem;
+            margin-bottom: 0.15rem;
             border-radius: 8px;
             transition: all 0.2s ease;
             border: 1px solid transparent;
@@ -279,21 +335,21 @@ def generate_briefing_page(articles_by_section: dict):
             gap: 0.75rem;
         }}
         .article-title {{
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 500;
             line-height: 1.5;
         }}
         .article-original {{
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             color: var(--text-muted);
-            margin-top: 0.3rem;
+            margin-top: 0.25rem;
             padding-left: 0.75rem;
             border-left: 2px solid var(--border);
             font-style: italic;
         }}
         .watchlist-badge {{
             flex-shrink: 0;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 500;
             color: var(--watchlist);
             background: rgba(212, 68, 42, 0.15);
@@ -303,7 +359,7 @@ def generate_briefing_page(articles_by_section: dict):
         }}
         .article-date {{
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: var(--text-muted);
         }}
         .footer {{
@@ -312,7 +368,7 @@ def generate_briefing_page(articles_by_section: dict):
             text-align: center;
         }}
         .footer-text {{
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
         }}
         .footer-text a {{
@@ -324,18 +380,13 @@ def generate_briefing_page(articles_by_section: dict):
             padding: 4rem 0;
             color: var(--text-muted);
         }}
-        .update-time {{
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            margin-top: 0.25rem;
-        }}
         @media (max-width: 640px) {{
             .brand {{ font-size: 1.5rem; }}
             .date-weekday {{ font-size: 1.3rem; }}
-            .header-top {{ flex-direction: column; gap: 1rem; }}
+            .header-top {{ flex-direction: column; gap: 0.75rem; }}
             .date-block {{ text-align: left; }}
             .article-header {{ flex-direction: column; gap: 0.25rem; }}
+            .header {{ position: static; }}
         }}
     </style>
 </head>
@@ -345,7 +396,7 @@ def generate_briefing_page(articles_by_section: dict):
             <div class="header-top">
                 <div>
                     <div class="brand">Daily News Brief</div>
-                    <div class="brand-sub">FT & Bloomberg & Reuters 데일리 뉴스 브리핑</div>
+                    <div class="brand-sub">FT · Bloomberg · Reuters · TechCrunch · Space · Defense · 매경 · 한경 · 조선</div>
                 </div>
                 <div class="date-block">
                     <div class="date-weekday">{weekday}요일</div>
@@ -353,53 +404,82 @@ def generate_briefing_page(articles_by_section: dict):
                     <div class="update-time">업데이트 {time_str} KST</div>
                 </div>
             </div>
-            <div class="stats-bar">
-                <span class="total-count">총 {total_articles}개 기사</span>
-                {section_stats}
-            </div>
-            <div class="date-filter">
+            <span class="total-count">총 {total_articles}개 기사</span>
+            <div class="filter-row">
+                <span class="filter-label">날짜</span>
                 {date_buttons}
             </div>
+            <div class="filter-row">
+                <span class="filter-label">소스</span>
+                {source_buttons}
+            </div>
+            <div class="filter-count" id="filterCount"></div>
             {status_html}
         </div>
     </header>
     <main class="main">
         <div class="container">
-            {articles_html if total_articles > 0 else '<div class="empty-state">📭 오늘 수집된 기사가 없습니다.</div>'}
+            {articles_html if total_articles > 0 else '<div class="empty-state">📭 수집된 기사가 없습니다.</div>'}
         </div>
     </main>
     <footer class="footer">
         <div class="container">
             <div class="footer-text">
                 Daily News Brief · KST 07:00 / 12:00 / 20:00 / 21:00 자동 업데이트<br>
-                Powered by <a href="https://www.ft.com" target="_blank">FT</a> & <a href="https://www.bloomberg.com" target="_blank">Bloomberg</a> & <a href="https://www.reuters.com" target="_blank">Reuters</a> RSS
+                Powered by FT · Bloomberg · Reuters · TechCrunch · Space · Defense · 매경 · 한경 · 조선
             </div>
         </div>
     </footer>
     <script>
-        function filterDate(date) {{
-            // 버튼 활성화 토글
-            document.querySelectorAll('.date-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+        let currentDate = 'all';
+        let currentSource = 'all';
 
-            // 기사 필터링
+        function filterDate(date) {{
+            currentDate = date;
+            document.querySelectorAll('.date-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            applyFilters();
+        }}
+
+        function filterSource(source) {{
+            currentSource = source;
+            document.querySelectorAll('.source-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            applyFilters();
+        }}
+
+        function applyFilters() {{
+            let visibleCount = 0;
+
             document.querySelectorAll('.article-card').forEach(card => {{
-                if (date === 'all' || card.getAttribute('data-date') === date) {{
+                const matchDate = (currentDate === 'all' || card.getAttribute('data-date') === currentDate);
+                const matchSource = (currentSource === 'all' || card.getAttribute('data-source') === currentSource);
+
+                if (matchDate && matchSource) {{
                     card.classList.remove('hidden');
+                    visibleCount++;
                 }} else {{
                     card.classList.add('hidden');
                 }}
             }});
 
-            // 빈 섹션 숨기기
             document.querySelectorAll('.section-group').forEach(group => {{
-                const visibleCards = group.querySelectorAll('.article-card:not(.hidden)');
-                if (visibleCards.length === 0) {{
-                    group.classList.add('hidden');
-                }} else {{
+                const matchSource = (currentSource === 'all' || group.getAttribute('data-source') === currentSource);
+                const hasVisible = group.querySelectorAll('.article-card:not(.hidden)').length > 0;
+
+                if (matchSource && hasVisible) {{
                     group.classList.remove('hidden');
+                }} else {{
+                    group.classList.add('hidden');
                 }}
             }});
+
+            const countEl = document.getElementById('filterCount');
+            if (currentDate === 'all' && currentSource === 'all') {{
+                countEl.textContent = '';
+            }} else {{
+                countEl.textContent = visibleCount + '개 기사 표시 중';
+            }}
         }}
     </script>
 </body>
