@@ -36,16 +36,22 @@ def generate_briefing_page(articles_by_section: dict):
             watchlist_item = article.get('watchlist_item', '')
 
             watchlist_badge = f'<span class="watchlist-badge">★ {watchlist_item}</span>' if has_watchlist else ''
-            # 한글 번역이 있고 원문과 다르면 표시
-            translated_html = f'<div class="article-translated">{title_ko}</div>' if title_ko and title_ko != title else ''
+
+            # 한글 번역이 있으면 한글을 메인 제목으로, 영문을 서브로
+            if title_ko and title_ko != title:
+                main_title = title_ko
+                sub_html = f'<div class="article-original">{title}</div>'
+            else:
+                main_title = title
+                sub_html = ''
 
             articles_html += f'''
             <a href="{link}" target="_blank" class="article-card {"watchlist" if has_watchlist else ""}">
                 <div class="article-header">
-                    <div class="article-title">{title}</div>
+                    <div class="article-title">{main_title}</div>
                     {watchlist_badge}
                 </div>
-                {translated_html}
+                {sub_html}
                 <div class="article-meta">
                     <span class="article-date">{pub_date}</span>
                 </div>
@@ -201,12 +207,13 @@ def generate_briefing_page(articles_by_section: dict):
             font-weight: 500;
             line-height: 1.5;
         }}
-        .article-translated {{
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-top: 0.35rem;
+        .article-original {{
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
             padding-left: 0.75rem;
-            border-left: 2px solid var(--accent-dim);
+            border-left: 2px solid var(--border);
+            font-style: italic;
         }}
         .watchlist-badge {{
             flex-shrink: 0;
