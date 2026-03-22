@@ -2,6 +2,7 @@
 멀티 소스 RSS 수집 모듈
 FT + Bloomberg + Reuters + TechCrunch + Space + Defense
 """
+import os
 import feedparser
 from datetime import datetime
 from typing import Dict, List
@@ -66,17 +67,6 @@ TECH_FEEDS = {
     'Ars Technica': 'https://feeds.arstechnica.com/arstechnica/index',
 }
 
-# 전체 피드 합치기
-ALL_FEEDS = {
-    **FT_FEEDS,
-    **BLOOMBERG_FEEDS,
-    **REUTERS_FEEDS,
-    **TECHCRUNCH_FEEDS,
-    **SPACE_FEEDS,
-    **DEFENSE_FEEDS,
-    **TECH_FEEDS,
-}
-
 # 피드 상태 추적
 feed_status = {}
 
@@ -86,16 +76,41 @@ def get_feed_status() -> dict:
     return feed_status
 
 
+def _get_active_feeds() -> dict:
+    """
+    FEED_GROUP 환경변수에 따라 활성 피드 결정
+    - 'ft': FT 피드만
+    - 'all' 또는 미설정: FT 제외 나머지 전체
+    """
+    feed_group = os.getenv('FEED_GROUP', 'all')
+    logger.info(f"피드 그룹: {feed_group}")
+
+    if feed_group == 'ft':
+        return FT_FEEDS
+    else:
+        # 'all' = FT 제외 나머지 전체 (FT는 20:00에 이미 수집됨)
+        return {
+            **BLOOMBERG_FEEDS,
+            **REUTERS_FEEDS,
+            **TECHCRUNCH_FEEDS,
+            **SPACE_FEEDS,
+            **DEFENSE_FEEDS,
+            **TECH_FEEDS,
+        }
+
+
 def fetch_ft_rss() -> Dict[str, List[dict]]:
     """
-    전체 RSS 피드 수집 - 복수 소스에서 수집 및 중복 제거
+    RSS 피드 수집 - FEED_GROUP에 따라 선택적 수집
     """
     global feed_status
     articles_by_section = {}
     seen_links = set()
     feed_status = {}
 
-    for section_name, feed_url in ALL_FEEDS.items():
+    active_feeds = _get_active_feeds()
+
+    for section_name, feed_url in active_feeds.items():
         try:
             logger.info(f"RSS 수집: {section_name} ({feed_url})")
             feed = feedparser.parse(feed_url)
