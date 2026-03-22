@@ -5,6 +5,7 @@ import os
 from datetime import datetime
 from config.config import KST
 from src.logger import setup_logger
+from src.rss_fetcher import get_feed_status
 
 logger = setup_logger(__name__)
 
@@ -20,6 +21,20 @@ def generate_briefing_page(articles_by_section: dict):
     weekday = weekday_map[now.weekday()]
 
     total_articles = sum(len(v) for v in articles_by_section.values())
+
+    # 피드 상태 가져오기
+    status = get_feed_status()
+    unavailable_feeds = [k for k, v in status.items() if v in ('unavailable', 'error')]
+
+    # 피드 상태 알림 HTML
+    status_html = ""
+    if unavailable_feeds:
+        feeds_list = ", ".join(unavailable_feeds)
+        status_html = f'''
+        <div class="status-alert">
+            ⚠️ RSS 피드 접속 불가: {feeds_list} — 해당 소스의 RSS 서비스가 중단되었거나 접속이 차단된 상태입니다.
+        </div>
+        '''
 
     # 기사 HTML 생성
     articles_html = ""
@@ -37,7 +52,6 @@ def generate_briefing_page(articles_by_section: dict):
 
             watchlist_badge = f'<span class="watchlist-badge">★ {watchlist_item}</span>' if has_watchlist else ''
 
-            # 한글 번역이 있으면 한글을 메인 제목으로, 영문을 서브로
             if title_ko and title_ko != title:
                 main_title = title_ko
                 sub_html = f'<div class="article-original">{title}</div>'
@@ -164,6 +178,16 @@ def generate_briefing_page(articles_by_section: dict):
             padding: 0.25rem 0.75rem;
             border-radius: 100px;
         }}
+        .status-alert {{
+            margin-top: 1rem;
+            padding: 0.75rem 1rem;
+            background: rgba(212, 68, 42, 0.08);
+            border: 1px solid rgba(212, 68, 42, 0.2);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--watchlist);
+            line-height: 1.5;
+        }}
         .main {{ padding: 2rem 0 4rem; }}
         .section-group {{ margin-bottom: 2.5rem; }}
         .section-label {{
@@ -269,7 +293,7 @@ def generate_briefing_page(articles_by_section: dict):
             <div class="header-top">
                 <div>
                     <div class="brand">Daily News Brief</div>
-                    <div class="brand-sub">FT & Bloomberg 데일리 뉴스 브리핑</div>
+                    <div class="brand-sub">FT & Bloomberg & Reuters 데일리 뉴스 브리핑</div>
                 </div>
                 <div class="date-block">
                     <div class="date-weekday">{weekday}요일</div>
@@ -281,6 +305,7 @@ def generate_briefing_page(articles_by_section: dict):
                 <span class="total-count">총 {total_articles}개 기사</span>
                 {section_stats}
             </div>
+            {status_html}
         </div>
     </header>
     <main class="main">
@@ -291,8 +316,8 @@ def generate_briefing_page(articles_by_section: dict):
     <footer class="footer">
         <div class="container">
             <div class="footer-text">
-                Daily News Brief · FT 20:00 KST · Bloomberg 21:00 KST 자동 업데이트<br>
-                Powered by <a href="https://www.ft.com" target="_blank">Financial Times</a> & <a href="https://www.bloomberg.com" target="_blank">Bloomberg</a> RSS
+                Daily News Brief · FT 20:00 KST · Bloomberg & Reuters 21:00 KST 자동 업데이트<br>
+                Powered by <a href="https://www.ft.com" target="_blank">FT</a> & <a href="https://www.bloomberg.com" target="_blank">Bloomberg</a> & <a href="https://www.reuters.com" target="_blank">Reuters</a> RSS
             </div>
         </div>
     </footer>
