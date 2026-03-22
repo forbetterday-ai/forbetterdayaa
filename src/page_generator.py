@@ -2,12 +2,21 @@
 데일리 뉴스 브리핑 웹페이지 생성 모듈
 """
 import os
-from datetime import datetime
+import re
+from datetime import datetime, timedelta
 from config.config import KST
 from src.logger import setup_logger
 from src.rss_fetcher import get_feed_status
 
 logger = setup_logger(__name__)
+
+
+def _extract_date_str(pub_date: str) -> str:
+    """pub_date 문자열에서 날짜(YYYY년 MM월 DD일) 추출"""
+    match = re.search(r'(\d{4})년\s*(\d{2})월\s*(\d{2})일', pub_date)
+    if match:
+        return f"{match.group(1)}년 {match.group(2)}월 {match.group(3)}일"
+    return ""
 
 
 def generate_briefing_page(articles_by_section: dict):
@@ -22,11 +31,10 @@ def generate_briefing_page(articles_by_section: dict):
 
     total_articles = sum(len(v) for v in articles_by_section.values())
 
-    # 피드 상태 가져오기
+    # 피드 상태
     status = get_feed_status()
     unavailable_feeds = [k for k, v in status.items() if v in ('unavailable', 'error')]
 
-    # 피드 상태 알림 HTML
     status_html = ""
     if unavailable_feeds:
         feeds_list = ", ".join(unavailable_feeds)
@@ -35,6 +43,20 @@ def generate_briefing_page(articles_by_section: dict):
             ⚠️ RSS 피드 접속 불가: {feeds_list} — 해당 소스의 RSS 서비스가 중단되었거나 접속이 차단된 상태입니다.
         </div>
         '''
+
+    # 날짜 목록 수집
+    all_dates = set()
+    for section, articles in articles_by_section.items():
+        for article in articles:
+            d = _extract_date_str(article.get('pub_date', ''))
+            if d:
+                all_dates.add(d)
+    sorted_dates = sorted(all_dates, reverse=True)
+
+    # 날짜 필터 버튼 생성
+    date_buttons = '<button class="date-btn active" onclick="filterDate(\'all\')">전체</button>'
+    for d in sorted_dates:
+        date_buttons += f'<button class="date-btn" onclick="filterDate(\'{d}\')">{d}</button>'
 
     # 기사 HTML 생성
     articles_html = ""
@@ -49,6 +71,7 @@ def generate_briefing_page(articles_by_section: dict):
             pub_date = article.get('pub_date', '')
             has_watchlist = article.get('has_watchlist', False)
             watchlist_item = article.get('watchlist_item', '')
+            article_date = _extract_date_str(pub_date)
 
             watchlist_badge = f'<span class="watchlist-badge">★ {watchlist_item}</span>' if has_watchlist else ''
 
@@ -60,7 +83,7 @@ def generate_briefing_page(articles_by_section: dict):
                 sub_html = ''
 
             articles_html += f'''
-            <a href="{link}" target="_blank" class="article-card {"watchlist" if has_watchlist else ""}">
+            <a href="{link}" target="_blank" class="article-card {"watchlist" if has_watchlist else ""}" data-date="{article_date}">
                 <div class="article-header">
                     <div class="article-title">{main_title}</div>
                     {watchlist_badge}
@@ -188,8 +211,36 @@ def generate_briefing_page(articles_by_section: dict):
             color: var(--watchlist);
             line-height: 1.5;
         }}
+        .date-filter {{
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }}
+        .date-btn {{
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }}
+        .date-btn:hover {{
+            border-color: var(--accent-dim);
+            color: var(--text-primary);
+        }}
+        .date-btn.active {{
+            background: var(--accent-dim);
+            border-color: var(--accent);
+            color: var(--accent);
+            font-weight: 500;
+        }}
         .main {{ padding: 2rem 0 4rem; }}
         .section-group {{ margin-bottom: 2.5rem; }}
+        .section-group.hidden {{ display: none; }}
         .section-label {{
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.7rem;
@@ -220,6 +271,7 @@ def generate_briefing_page(articles_by_section: dict):
             background: var(--watchlist-bg);
             border-left: 3px solid var(--watchlist);
         }}
+        .article-card.hidden {{ display: none; }}
         .article-header {{
             display: flex;
             justify-content: space-between;
@@ -305,6 +357,9 @@ def generate_briefing_page(articles_by_section: dict):
                 <span class="total-count">총 {total_articles}개 기사</span>
                 {section_stats}
             </div>
+            <div class="date-filter">
+                {date_buttons}
+            </div>
             {status_html}
         </div>
     </header>
@@ -316,11 +371,37 @@ def generate_briefing_page(articles_by_section: dict):
     <footer class="footer">
         <div class="container">
             <div class="footer-text">
-                Daily News Brief · FT 20:00 KST · Bloomberg & Reuters 21:00 KST 자동 업데이트<br>
+                Daily News Brief · KST 07:00 / 12:00 / 20:00 / 21:00 자동 업데이트<br>
                 Powered by <a href="https://www.ft.com" target="_blank">FT</a> & <a href="https://www.bloomberg.com" target="_blank">Bloomberg</a> & <a href="https://www.reuters.com" target="_blank">Reuters</a> RSS
             </div>
         </div>
     </footer>
+    <script>
+        function filterDate(date) {{
+            // 버튼 활성화 토글
+            document.querySelectorAll('.date-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // 기사 필터링
+            document.querySelectorAll('.article-card').forEach(card => {{
+                if (date === 'all' || card.getAttribute('data-date') === date) {{
+                    card.classList.remove('hidden');
+                }} else {{
+                    card.classList.add('hidden');
+                }}
+            }});
+
+            // 빈 섹션 숨기기
+            document.querySelectorAll('.section-group').forEach(group => {{
+                const visibleCards = group.querySelectorAll('.article-card:not(.hidden)');
+                if (visibleCards.length === 0) {{
+                    group.classList.add('hidden');
+                }} else {{
+                    group.classList.remove('hidden');
+                }}
+            }});
+        }}
+    </script>
 </body>
 </html>'''
 
