@@ -89,6 +89,7 @@ def _get_active_feeds() -> dict:
         return FT_FEEDS
     else:
         return {
+            **FT_FEEDS,
             **BLOOMBERG_FEEDS,
             **REUTERS_FEEDS,
             **TECHCRUNCH_FEEDS,
