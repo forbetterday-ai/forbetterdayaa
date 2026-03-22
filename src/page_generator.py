@@ -1,5 +1,5 @@
 """
-FT 데일리 브리핑 웹페이지 생성 모듈
+데일리 뉴스 브리핑 웹페이지 생성 모듈
 """
 import os
 from datetime import datetime
@@ -70,7 +70,7 @@ def generate_briefing_page(articles_by_section: dict):
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FT 데일리 브리핑 - {date_str}</title>
+    <title>Daily News Brief - {date_str}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
@@ -268,8 +268,8 @@ def generate_briefing_page(articles_by_section: dict):
         <div class="container">
             <div class="header-top">
                 <div>
-                    <div class="brand">FT Daily Brief</div>
-                    <div class="brand-sub">Financial Times 데일리 브리핑</div>
+                    <div class="brand">Daily News Brief</div>
+                    <div class="brand-sub">FT & Bloomberg 데일리 뉴스 브리핑</div>
                 </div>
                 <div class="date-block">
                     <div class="date-weekday">{weekday}요일</div>
@@ -291,8 +291,8 @@ def generate_briefing_page(articles_by_section: dict):
     <footer class="footer">
         <div class="container">
             <div class="footer-text">
-                FT Daily Brief Automation · 매일 KST 08:00 자동 업데이트<br>
-                Powered by <a href="https://www.ft.com" target="_blank">Financial Times</a> RSS
+                Daily News Brief · FT 20:00 KST · Bloomberg 21:00 KST 자동 업데이트<br>
+                Powered by <a href="https://www.ft.com" target="_blank">Financial Times</a> & <a href="https://www.bloomberg.com" target="_blank">Bloomberg</a> RSS
             </div>
         </div>
     </footer>
