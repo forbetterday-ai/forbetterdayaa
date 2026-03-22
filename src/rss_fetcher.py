@@ -1,6 +1,6 @@
 """
 멀티 소스 RSS 수집 모듈
-FT + Bloomberg + Reuters + TechCrunch + Space + Defense
+FT + Bloomberg + Reuters + TechCrunch + Space + Defense + Korean News
 """
 import feedparser
 from datetime import datetime
@@ -68,6 +68,35 @@ TECH_FEEDS = {
     'Ars Technica': 'https://feeds.arstechnica.com/arstechnica/index',
 }
 
+# ===== 매일경제 =====
+MK_FEEDS = {
+    'MK 헤드라인': 'https://www.mk.co.kr/rss/30000001/',
+    'MK 경제': 'https://www.mk.co.kr/rss/30100041/',
+    'MK 금융': 'https://www.mk.co.kr/rss/30200030/',
+    'MK 기업': 'https://www.mk.co.kr/rss/50100012/',
+    'MK 증권': 'https://www.mk.co.kr/rss/50200011/',
+    'MK IT': 'https://www.mk.co.kr/rss/50300009/',
+}
+
+# ===== 한국경제 =====
+HANKYUNG_FEEDS = {
+    'HK 경제': 'https://www.hankyung.com/feed/economy',
+    'HK 산업': 'https://www.hankyung.com/feed/industry',
+    'HK 금융': 'https://www.hankyung.com/feed/finance',
+    'HK IT': 'https://www.hankyung.com/feed/it',
+    'HK 전체': 'https://www.hankyung.com/feed/all-news',
+}
+
+# ===== 조선일보 =====
+CHOSUN_FEEDS = {
+    '조선 헤드라인': 'https://www.chosun.com/arc/outboundfeeds/rss/?outputType=xml',
+    '조선 정치': 'https://www.chosun.com/arc/outboundfeeds/rss/category/politics/?outputType=xml',
+    '조선 사회': 'https://www.chosun.com/arc/outboundfeeds/rss/category/national/?outputType=xml',
+}
+
+# 한국 뉴스 피드 목록 (번역 스킵용)
+KOREAN_FEEDS = {**MK_FEEDS, **HANKYUNG_FEEDS, **CHOSUN_FEEDS}
+
 # 전체 피드
 ALL_FEEDS = {
     **FT_FEEDS,
@@ -77,6 +106,9 @@ ALL_FEEDS = {
     **SPACE_FEEDS,
     **DEFENSE_FEEDS,
     **TECH_FEEDS,
+    **MK_FEEDS,
+    **HANKYUNG_FEEDS,
+    **CHOSUN_FEEDS,
 }
 
 # 피드 상태 추적
@@ -86,6 +118,11 @@ feed_status = {}
 def get_feed_status() -> dict:
     """피드 상태 반환"""
     return feed_status
+
+
+def is_korean_feed(section_name: str) -> bool:
+    """한국 뉴스 피드인지 확인 (번역 불필요)"""
+    return section_name in KOREAN_FEEDS
 
 
 def fetch_ft_rss() -> Dict[str, List[dict]]:
@@ -125,6 +162,7 @@ def fetch_ft_rss() -> Dict[str, List[dict]]:
                     'pub_date': format_publish_date(pub_date),
                     'summary': entry.get('summary', '')[:300],
                     'section': section_name,
+                    'is_korean': is_korean_feed(section_name),
                 }
                 section_articles.append(article)
 
