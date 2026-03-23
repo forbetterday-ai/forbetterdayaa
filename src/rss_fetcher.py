@@ -69,6 +69,15 @@ TECH_FEEDS = {
     'The Information': 'https://rss.app/feeds/WHiQ80N8WLtalVfX.xml',
 }
 
+# ===== WSJ =====
+WSJ_FEEDS = {
+    'WSJ US Business': 'https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml',
+    'WSJ Markets': 'https://feeds.a.dj.com/rss/RSSMarketsMain.xml',
+    'WSJ Technology': 'https://feeds.a.dj.com/rss/RSSWSJD.xml',
+    'WSJ Economy': 'https://feeds.content.dowjones.io/public/rss/WSJcomEconomics',
+    'WSJ Business': 'https://feeds.content.dowjones.io/public/rss/WSJcomBusiness',
+}
+
 # ===== 매일경제 =====
 MK_FEEDS = {
     'MK 경제': 'https://www.mk.co.kr/rss/30100041/',
@@ -102,6 +111,7 @@ ALL_FEEDS = {
     **TECHCRUNCH_FEEDS,
     **SPACE_FEEDS,
     **DEFENSE_FEEDS,
+    **WSJ_FEEDS,
     **TECH_FEEDS,
     **MK_FEEDS,
     **HANKYUNG_FEEDS,
