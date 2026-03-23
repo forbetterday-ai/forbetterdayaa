@@ -119,7 +119,8 @@ def generate_briefing_page(articles_by_section: dict):
             # data 속성에 메타 정보 저장 (별점 저장 시 함께 전송)
             data_attrs = f'data-date="{article_date}" data-source="{source_group}" data-id="{article_id}" data-title="{main_title}" data-link="{link}" data-watchlist="{watchlist_item}"'
 
-            articles_html += f'''<div class="art-card {"watchlist" if has_watchlist else ""}" {data_attrs}>
+            soft_dislike_class = 'soft-dislike' if article.get('is_soft_dislike') else ''
+            articles_html += f'''<div class="art-card {"watchlist" if has_watchlist else ""} {soft_dislike_class}" {data_attrs}>
 <a href="{link}" target="_blank" class="art-link">
 <div class="art-head"><div class="art-title">{main_title}</div>{watchlist_badge}</div>
 {sub_html}
