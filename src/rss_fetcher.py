@@ -97,6 +97,7 @@ PREMIUM_FEEDS = {
     **FT_FEEDS,
     **BLOOMBERG_FEEDS,
     **REUTERS_FEEDS,
+    **WSJ_FEEDS,
 }
 
 DAILY_FEEDS = {
@@ -104,7 +105,6 @@ DAILY_FEEDS = {
     **SPACE_FEEDS,
     **DEFENSE_FEEDS,
     **TECH_FEEDS,
-    **WSJ_FEEDS,
 }
 
 ALL_FEEDS = {
