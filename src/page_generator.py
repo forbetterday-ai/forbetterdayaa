@@ -310,8 +310,9 @@ body {{
     border-left: 3px solid var(--wl);
 }}
 .art-card.hidden {{ display: none; }}
-.art-card.rated-dislike {{
-    opacity: 0.35;
+.art-card.soft-dislike {{
+    opacity: 0.45;
+    border-left: 3px solid var(--dislike);
 }}
 .art-link {{
     display: block;
