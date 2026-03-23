@@ -113,56 +113,6 @@
       "is_korean": false
     }
   ],
-  "SpaceNews": [
-    {
-      "title": "The software behind Artemis, Gateway and America’s defense in space deserves its own strategy",
-      "link": "https://spacenews.com/the-software-behind-artemis-gateway-and-americas-defense-in-space-deserves-its-own-strategy/",
-      "pub_date": "2026년 03월 23일 22:00 KST",
-      "summary": "<figure><img alt=\"SLS/Orion 2026 Feb 2\" class=\"attachment-rss-image-size size-rss-image-size wp-post-image\" height=\"683\" src=\"https://i0.wp.com/spacenews.com/wp-content/uploads/2026/02/art2-20260202.jpeg?fit=1024%2C683&amp;ssl=1\" width=\"1024\" /></figure>\n<p>When we talk about national space infrastr",
-      "section": "SpaceNews",
-      "is_korean": false
-    },
-    {
-      "title": "Lunar lander developers say they are ready to meet anticipated increased NASA demand",
-      "link": "https://spacenews.com/lunar-lander-developers-say-they-are-ready-to-meet-anticipated-increased-nasa-demand/",
-      "pub_date": "2026년 03월 23일 18:40 KST",
-      "summary": "<figure><img alt=\"Nova-c\" class=\"attachment-rss-image-size size-rss-image-size wp-post-image\" height=\"576\" src=\"https://i0.wp.com/spacenews.com/wp-content/uploads/2025/11/novac-im4.jpg?fit=1024%2C576&amp;ssl=1\" width=\"1024\" /></figure>\n<p>Two lunar lander companies say they’re ready to meet NASA’s p",
-      "section": "SpaceNews",
-      "is_korean": false
-    },
-    {
-      "title": "Swissto12 to build small optical relay GEO satellite for Space Compass",
-      "link": "https://spacenews.com/swissto12-to-build-small-optical-relay-geo-satellite-for-space-compass/",
-      "pub_date": "2026년 03월 23일 13:01 KST",
-      "summary": "<figure><img alt=\"\" class=\"attachment-rss-image-size size-rss-image-size wp-post-image\" height=\"683\" src=\"https://i0.wp.com/spacenews.com/wp-content/uploads/2026/03/SWISSto12_Space-Compass_Leadership.jpg?fit=1024%2C683&amp;ssl=1\" width=\"1024\" /></figure>\n<p>Swissto12, the Switzerland-based small geo",
-      "section": "SpaceNews",
-      "is_korean": false
-    },
-    {
-      "title": "SpaceX offers details on orbital data center satellites",
-      "link": "https://spacenews.com/spacex-offers-details-on-orbital-data-center-satellites/",
-      "pub_date": "2026년 03월 23일 03:08 KST",
-      "summary": "<figure><img alt=\"Starship AI Sat Mini\" class=\"attachment-rss-image-size size-rss-image-size wp-post-image\" height=\"572\" src=\"https://i0.wp.com/spacenews.com/wp-content/uploads/2026/03/starship-aisatmini.jpeg?fit=1024%2C572&amp;ssl=1\" width=\"1024\" /></figure>\n<p>SpaceX Chief Executive Elon Musk reve",
-      "section": "SpaceNews",
-      "is_korean": false
-    },
-    {
-      "title": "Some European Launcher Challenge funding remains in limbo",
-      "link": "https://spacenews.com/some-european-launcher-challenge-funding-remains-in-limbo/",
-      "pub_date": "2026년 03월 22일 09:53 KST",
-      "summary": "<figure><img alt=\"Orbex Prime\" class=\"attachment-rss-image-size size-rss-image-size wp-post-image\" height=\"682\" src=\"https://i0.wp.com/spacenews.com/wp-content/uploads/2026/01/orbexprime-nov2025.jpeg?fit=1024%2C682&amp;ssl=1\" width=\"1024\" /></figure>\n<p>Nearly 140 million euros ($162 million) that E",
-      "section": "SpaceNews",
-      "is_korean": false
-    },
-    {
-      "title": "Artemis 2 returns to the pad for April launch attempt",
-      "link": "https://spacenews.com/artemis-2-returns-to-the-pad-for-april-launch-attempt/",
-      "pub_date": "2026년 03월 22일 00:14 KST",
-      "summary": "<figure><img alt=\"SLS Artemis 2 rollout\" class=\"attachment-rss-image-size size-rss-image-size wp-post-image\" height=\"683\" src=\"https://i0.wp.com/spacenews.com/wp-content/uploads/2026/03/NHQ20260320_admin_0005-large.jpg?fit=1024%2C683&amp;ssl=1\" width=\"1024\" /></figure>\n<p>The Artemis 2 launch vehicl",
-      "section": "SpaceNews",
-      "is_korean": false
-    }
-  ],
   "Space.com": [
     {
       "title": "Triangulum Galaxy dazzles in psychedelic color | Space photo of the day for March 23, 2026",
@@ -434,6 +384,14 @@
     }
   ],
   "The Information": [
+    {
+      "title": "Why Notion is Switching From Cursor to Claude Code and Codex",
+      "link": "https://www.theinformation.com/newsletters/ai-agenda/notion-switching-cursor-claude-code-codex",
+      "pub_date": "2026년 03월 23일 23:00 KST",
+      "summary": "<div><img src=\"https://tii.imgix.net/production/articles/16807/b6904dc7-c1d5-400f-98ea-98a46022d9bd-6BjNAg.png?fm=jpg&amp;auto=compress&amp;w=1200&amp;frame=0\" style=\"width: 100%;\" /><div>Software engineers embracing the AI coding revolution don’t have much loyalty to any particular coding tool, esp",
+      "section": "The Information",
+      "is_korean": false
+    },
     {
       "title": "OpenAI’s Shopping U-Turn Could Complicate Enterprise Playbook",
       "link": "https://www.theinformation.com/articles/openais-shopping-u-turn-complicate-enterprise-playbook",
