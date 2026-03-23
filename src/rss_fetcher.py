@@ -71,9 +71,9 @@ TECH_FEEDS = {
 
 # ===== WSJ =====
 WSJ_FEEDS = {
-    'WSJ US Business': 'https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml',
-    'WSJ Markets': 'https://feeds.a.dj.com/rss/RSSMarketsMain.xml',
-    'WSJ Technology': 'https://feeds.a.dj.com/rss/RSSWSJD.xml',
+    'WSJ US Business': 'https://feeds.content.dowjones.io/public/rss/WSJcomUSBusiness',
+    'WSJ Markets': 'https://feeds.content.dowjones.io/public/rss/RSSMarketsMain',
+    'WSJ Technology': 'https://feeds.content.dowjones.io/public/rss/RSSWSJD',
     'WSJ Economy': 'https://feeds.content.dowjones.io/public/rss/socialeconomyfeed',
 }
 
