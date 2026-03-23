@@ -1,7 +1,11 @@
 """
 멀티 소스 RSS 수집 모듈
-FT + Bloomberg + Reuters + TechCrunch + Space + Defense + Korean News
+그룹1 (Premium): FT + Bloomberg + Reuters → KST 7~23시 매시간
+그룹2 (Daily): TechCrunch + Space + Defense + Tech + WSJ → KST 7시, 21시만
+한국 뉴스 (매경/한경/조선) → 삭제됨
 """
+import os
+import json
 import feedparser
 from datetime import datetime
 from typing import Dict, List
@@ -10,6 +14,10 @@ from src.logger import setup_logger
 from src.utils import is_within_hours, format_publish_date
 
 logger = setup_logger(__name__)
+
+# ===================================
+# 그룹1: Premium (매시간 업데이트)
+# ===================================
 
 # ===== FT =====
 FT_FEEDS = {
@@ -36,6 +44,10 @@ REUTERS_FEEDS = {
     'Reuters Business': 'https://rss.app/feeds/26v2BmTDY6p2UAci.xml',
     'Reuters Markets': 'https://rss.app/feeds/ll09owyV9vLoceC6.xml',
 }
+
+# ===================================
+# 그룹2: Daily (7시, 21시만 업데이트)
+# ===================================
 
 # ===== TechCrunch =====
 TECHCRUNCH_FEEDS = {
@@ -77,45 +89,31 @@ WSJ_FEEDS = {
     'WSJ Economy': 'https://feeds.content.dowjones.io/public/rss/socialeconomyfeed',
 }
 
-# ===== 매일경제 =====
-MK_FEEDS = {
-    'MK 경제': 'https://www.mk.co.kr/rss/30100041/',
-    'MK 금융': 'https://www.mk.co.kr/rss/30200030/',
-    'MK 기업': 'https://www.mk.co.kr/rss/50100012/',
-    'MK 증권': 'https://www.mk.co.kr/rss/50200011/',
-    'MK IT': 'https://www.mk.co.kr/rss/50300009/',
-}
+# ===================================
+# 피드 그룹 정의
+# ===================================
 
-# ===== 한국경제 =====
-HANKYUNG_FEEDS = {
-    'HK 경제': 'https://www.hankyung.com/feed/economy',
-    'HK 금융': 'https://www.hankyung.com/feed/finance',
-    'HK IT': 'https://www.hankyung.com/feed/it',
-}
-
-# ===== 조선일보 =====
-CHOSUN_FEEDS = {
-    '조선 정치': 'https://www.chosun.com/arc/outboundfeeds/rss/category/politics/?outputType=xml',
-    '조선 사회': 'https://www.chosun.com/arc/outboundfeeds/rss/category/national/?outputType=xml',
-}
-
-# 한국 뉴스 피드 목록 (번역 스킵용)
-KOREAN_FEEDS = {**MK_FEEDS, **HANKYUNG_FEEDS, **CHOSUN_FEEDS}
-
-# 전체 피드
-ALL_FEEDS = {
+PREMIUM_FEEDS = {
     **FT_FEEDS,
     **BLOOMBERG_FEEDS,
     **REUTERS_FEEDS,
+}
+
+DAILY_FEEDS = {
     **TECHCRUNCH_FEEDS,
     **SPACE_FEEDS,
     **DEFENSE_FEEDS,
-    **WSJ_FEEDS,
     **TECH_FEEDS,
-    **MK_FEEDS,
-    **HANKYUNG_FEEDS,
-    **CHOSUN_FEEDS,
+    **WSJ_FEEDS,
 }
+
+ALL_FEEDS = {
+    **PREMIUM_FEEDS,
+    **DAILY_FEEDS,
+}
+
+# 캐시 파일 경로 (Daily 그룹 기사를 저장)
+DAILY_CACHE_FILE = 'docs/daily_cache.json'
 
 # 피드 상태 추적
 feed_status = {}
@@ -127,20 +125,76 @@ def get_feed_status() -> dict:
 
 
 def is_korean_feed(section_name: str) -> bool:
-    """한국 뉴스 피드인지 확인 (번역 불필요)"""
-    return section_name in KOREAN_FEEDS
+    """한국 뉴스 피드인지 확인 (번역 불필요) - 현재 한국 피드 없음"""
+    return False
+
+
+def _get_feed_group() -> str:
+    """
+    FEED_GROUP 환경변수에 따라 피드 그룹 결정
+    - 'premium': FT + Bloomberg + Reuters만 (매시간)
+    - 'all': 전체 피드 (KST 7시, 21시)
+    """
+    return os.getenv('FEED_GROUP', 'all')
+
+
+def _get_active_feeds() -> dict:
+    """현재 실행에서 수집할 피드 목록 반환"""
+    feed_group = _get_feed_group()
+    logger.info(f"피드 그룹: {feed_group}")
+
+    if feed_group == 'premium':
+        return PREMIUM_FEEDS
+    else:
+        return ALL_FEEDS
+
+
+def _save_daily_cache(articles_by_section: Dict[str, List[dict]]) -> None:
+    """Daily 그룹 기사를 캐시 파일에 저장"""
+    daily_articles = {k: v for k, v in articles_by_section.items() if k in DAILY_FEEDS}
+    if not daily_articles:
+        return
+    try:
+        os.makedirs(os.path.dirname(DAILY_CACHE_FILE), exist_ok=True)
+        with open(DAILY_CACHE_FILE, 'w', encoding='utf-8') as f:
+            json.dump(daily_articles, f, ensure_ascii=False, indent=2)
+        logger.info(f"Daily 캐시 저장: {sum(len(v) for v in daily_articles.values())}개 기사")
+    except Exception as e:
+        logger.warning(f"Daily 캐시 저장 실패: {e}")
+
+
+def _load_daily_cache() -> Dict[str, List[dict]]:
+    """저장된 Daily 그룹 기사 캐시 로드"""
+    try:
+        if os.path.exists(DAILY_CACHE_FILE):
+            with open(DAILY_CACHE_FILE, 'r', encoding='utf-8') as f:
+                cached = json.load(f)
+            total = sum(len(v) for v in cached.values())
+            logger.info(f"Daily 캐시 로드: {total}개 기사 ({len(cached)}개 섹션)")
+            return cached
+        else:
+            logger.info("Daily 캐시 파일 없음 (첫 실행)")
+    except Exception as e:
+        logger.warning(f"Daily 캐시 로드 실패: {e}")
+    return {}
 
 
 def fetch_ft_rss() -> Dict[str, List[dict]]:
     """
-    전체 RSS 피드 수집 - 모든 소스에서 수집 및 중복 제거
+    RSS 피드 수집 - FEED_GROUP에 따라 선택적 수집 + 캐시 병합
+
+    - FEED_GROUP=all: 전체 피드 수집 → Daily 캐시 저장
+    - FEED_GROUP=premium: Premium만 수집 → Daily 캐시에서 로드하여 병합
     """
     global feed_status
     articles_by_section = {}
     seen_links = set()
     feed_status = {}
 
-    for section_name, feed_url in ALL_FEEDS.items():
+    feed_group = _get_feed_group()
+    active_feeds = _get_active_feeds()
+
+    for section_name, feed_url in active_feeds.items():
         try:
             logger.info(f"RSS 수집: {section_name} ({feed_url})")
             feed = feedparser.parse(feed_url)
@@ -168,7 +222,7 @@ def fetch_ft_rss() -> Dict[str, List[dict]]:
                     'pub_date': format_publish_date(pub_date),
                     'summary': entry.get('summary', '')[:300],
                     'section': section_name,
-                    'is_korean': is_korean_feed(section_name),
+                    'is_korean': False,
                 }
                 section_articles.append(article)
 
@@ -178,24 +232,42 @@ def fetch_ft_rss() -> Dict[str, List[dict]]:
                 logger.info(f"  → {section_name}: {len(section_articles)}개 기사")
             else:
                 feed_status[section_name] = 'empty'
-                logger.info(f"  → {section_name}: 최근 24시간 기사 없음")
+                logger.info(f"  → {section_name}: 최근 기사 없음")
 
         except Exception as e:
             logger.error(f"RSS 수집 실패 ({section_name}): {str(e)}", exc_info=True)
             feed_status[section_name] = 'error'
 
+    # 캐시 처리
+    if feed_group == 'all':
+        # 전체 실행 시 Daily 기사를 캐시에 저장
+        _save_daily_cache(articles_by_section)
+    elif feed_group == 'premium':
+        # Premium만 실행 시 Daily 캐시를 로드하여 병합
+        cached_daily = _load_daily_cache()
+        for section_name, cached_articles in cached_daily.items():
+            if section_name not in articles_by_section:
+                articles_by_section[section_name] = cached_articles
+                feed_status[section_name] = 'cached'
+                # 캐시된 기사의 링크도 seen에 추가 (중복 방지)
+                for article in cached_articles:
+                    seen_links.add(article.get('link', ''))
+
     total = sum(len(v) for v in articles_by_section.values())
-    logger.info(f"수집 완료: 총 {total}개 기사 ({len(articles_by_section)}개 섹션)")
+    logger.info(f"수집 완료: 총 {total}개 기사 ({len(articles_by_section)}개 섹션) [그룹: {feed_group}]")
     return articles_by_section
 
 
 def get_articles_summary(articles_by_section: Dict[str, List[dict]]) -> str:
     """기사 수집 요약"""
     total_articles = sum(len(v) for v in articles_by_section.values())
-    summary = f"총 {total_articles}개 기사 수집\n\n"
+    feed_group = _get_feed_group()
+    summary = f"총 {total_articles}개 기사 수집 (모드: {feed_group})\n\n"
 
     for section, articles in articles_by_section.items():
-        summary += f"- {section}: {len(articles)}개\n"
+        status = feed_status.get(section, '')
+        cached_mark = ' (캐시)' if status == 'cached' else ''
+        summary += f"- {section}: {len(articles)}개{cached_mark}\n"
 
     unavailable = [k for k, v in feed_status.items() if v == 'unavailable']
     if unavailable:
