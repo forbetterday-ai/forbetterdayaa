@@ -2,7 +2,7 @@
   "ratings": {
     "2021d58cb27b": {
       "rating": "star3",
-      "title": "ë¯¸êµ°, 'ìí½ í¨ë¦¬' ìì  ì´ê¸° 'ì ëµì ' ìì¤ ìê³µ ëë¡  ìí ëì: ê¸°ìí¸",
+      "title": "Ã«Â¯Â¸ÃªÂµÂ°, 'Ã¬ÂÂÃ­ÂÂ½ Ã­ÂÂ¨Ã«Â¦Â¬' Ã¬ÂÂÃ¬Â Â Ã¬Â´ÂÃªÂ¸Â° 'Ã¬Â ÂÃ«ÂÂµÃ¬Â Â' Ã¬ÂÂÃ¬ÂÂ¤ Ã¬ÂÂÃªÂ³Âµ Ã«ÂÂÃ«Â¡Â  Ã¬ÂÂÃ­ÂÂ Ã«ÂÂÃ¬ÂÂ: ÃªÂ¸Â°Ã¬ÂÂÃ­ÂÂ¸",
       "source": "Defense",
       "link": "https://www.defensenews.com/news/your-military/2026/03/20/us-countered-drone-threat-over-strategic-installation-in-early-hours-of-operation-epic-fury-guillot/",
       "watchlistItem": "Drone",
@@ -10,12 +10,20 @@
     },
     "bcf9360ac9de": {
       "rating": "star3",
-      "title": "우주군, 레거시 지상 기반 미사일 방어 레이더 시스템 전면 개편 예정",
+      "title": "ì°ì£¼êµ°, ë ê±°ì ì§ì ê¸°ë° ë¯¸ì¬ì¼ ë°©ì´ ë ì´ë ìì¤í ì ë©´ ê°í¸ ìì ",
       "source": "Defense",
       "link": "https://breakingdefense.com/2026/03/space-force-to-overhaul-legacy-ground-based-missile-defense-radar-systems/",
       "watchlistItem": "Defense",
       "ratedAt": "2026-03-23T14:11:47.334Z"
+    },
+    "b60283c2d90d": {
+      "rating": "star2",
+      "title": "이사르 에어로스페이스, 발사 앞두고 2억 5천만 유로 투자 유치 협상 중",
+      "source": "Bloomberg",
+      "link": "https://www.bloomberg.com/news/articles/2026-03-23/isar-aerospace-in-talks-to-raise-250-million-ahead-of-launch",
+      "watchlistItem": "Space",
+      "ratedAt": "2026-03-23T14:23:46.353Z"
     }
   },
-  "lastUpdated": "2026-03-23T14:11:47.334Z"
+  "lastUpdated": "2026-03-23T14:23:46.353Z"
 }
