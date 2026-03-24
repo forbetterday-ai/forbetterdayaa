@@ -502,7 +502,7 @@ body {{
 }}
 .art-date {{
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.63rem;
+    font-size: 0.73rem;
     color: var(--txt3);
 }}
 /* Rating Bar */
