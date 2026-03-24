@@ -479,14 +479,6 @@
       "summary": "Extreme exomoons with tidal heating and thick, hydrogen-rich atmospheres may be able to create billions of years of potentially habitable surface conditions.",
       "section": "Space.com",
       "is_korean": false
-    },
-    {
-      "title": "Would you like to know more about 'Starship Troopers: Ultimate Bug War!'? Developer Auroch Digital has the answers (interview)",
-      "link": "https://www.space.com/entertainment/space-games/would-you-like-to-know-more-about-starship-troopers-ultimate-bug-war-developer-auroch-digital-has-the-answers-interview",
-      "pub_date": "2026년 03월 21일 19:00 KST",
-      "summary": "The latest Starship Troopers video game knows where its strengths lie and packs a couple of neat twists that set it apart from its predecessors.",
-      "section": "Space.com",
-      "is_korean": false
     }
   ],
   "Payload Space": [
@@ -508,6 +500,14 @@
     }
   ],
   "Satellite Today": [
+    {
+      "title": "Interview With TE Connectivity Principal Engineer Bruce Conway at SATShow Week",
+      "link": "https://www.satellitetoday.com/partner-content/2026/03/23/interview-with-te-connectivity-principal-engineer-bruce-conway-at-satshow-week/",
+      "pub_date": "2026년 03월 24일 09:55 KST",
+      "summary": "<p>In this interview to kick off SATShow Week, TE Connectivity Principal Engineer Bruce Conway talks about the company&#8217;s interconnects for satellites and solar panels and its deep space heritage on...</p>\n<p>The post <a href=\"https://www.satellitetoday.com/partner-content/2026/03/23/interview-",
+      "section": "Satellite Today",
+      "is_korean": false
+    },
     {
       "title": "Seraphim CEO: Space Investment is at a ‘Pivotal Time’",
       "link": "https://www.satellitetoday.com/satshow-2026/2026/03/23/seraphim-ceo-space-investment-is-at-a-pivotal-time/",
@@ -711,6 +711,30 @@
       "is_korean": false
     },
     {
+      "title": "More Launches, More Cyber Threats: Space Force Stands Up Units to Defend Ranges",
+      "link": "https://www.airandspaceforces.com/space-force-cyber-defense-squadrons-launch-ranges/",
+      "pub_date": "2026년 03월 24일 10:03 KST",
+      "summary": "<p>The Space Force this month established a squadron dedicated to defending against cyber intrusions at Vandenberg Space Force Base, Calif., as concerns about threats to the service’s physical and digital launch infrastructure are on the rise.</p>\n<p>The post <a href=\"https://www.airandspaceforces.c",
+      "section": "Air & Space Forces",
+      "is_korean": false
+    },
+    {
+      "title": "Look Inside Anduril’s New Factory as Collaborative Combat Aircraft Production Begins",
+      "link": "https://www.airandspaceforces.com/look-anduril-new-factory-cca-production/",
+      "pub_date": "2026년 03월 24일 09:56 KST",
+      "summary": "<p>Anduril Industries has begun production of its YFQ-44A “Fury” Collaborative Combat Aircraft drone at its Arsenal-1 plant outside of Columbus, Ohio.</p>\n<p>The post <a href=\"https://www.airandspaceforces.com/look-anduril-new-factory-cca-production/\">Look Inside Anduril&#8217;s New Factory as Colla",
+      "section": "Air & Space Forces",
+      "is_korean": false
+    },
+    {
+      "title": "Testing Shows Progress on Key Air Force Missiles and Bombs",
+      "link": "https://www.airandspaceforces.com/testing-progress-key-air-force-missiles-and-bombs/",
+      "pub_date": "2026년 03월 24일 09:42 KST",
+      "summary": "<p>The Pentagon’s top weapons tester noted progress on key munitions for the Air Force in his latest report, covering everything from dogfighting missiles to hypersonics.<br />\nA unique weapon that made headlines last year, the Guided Bomb Unit-57 Massive Ordnance Penetrator, has been released from ",
+      "section": "Air & Space Forces",
+      "is_korean": false
+    },
+    {
       "title": "Drones Incursions Over B-52 Base Spark Concern",
       "link": "https://www.airandspaceforces.com/drone-incursions-b-52-base-strategic-installations/",
       "pub_date": "2026년 03월 23일 23:58 KST",
@@ -903,14 +927,6 @@
       "link": "https://arstechnica.com/science/2026/03/we-keep-finding-the-raw-material-of-dna-in-asteroids-whats-it-telling-us/",
       "pub_date": "2026년 03월 21일 20:00 KST",
       "summary": "This week's result is just the latest in a growing collection of discoveries.",
-      "section": "Ars Technica",
-      "is_korean": false
-    },
-    {
-      "title": "DOGE goes nuclear: How Trump invited Silicon Valley into America’s nuclear power regulator",
-      "link": "https://arstechnica.com/science/2026/03/doge-goes-nuclear-how-trump-invited-silicon-valley-into-americas-nuclear-power-regulator/",
-      "pub_date": "2026년 03월 21일 19:00 KST",
-      "summary": "“Assume the NRC is going to do whatever we tell the NRC to do.”",
       "section": "Ars Technica",
       "is_korean": false
     }
