@@ -470,12 +470,12 @@ body {{
     display: block;
 }}
 .art-title {{
-    font-size: 0.88rem;
+    font-size: 0.98rem;
     font-weight: 500;
     line-height: 1.45;
 }}
 .art-orig {{
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     color: var(--txt3);
     margin-top: 0.2rem;
     padding-left: 0.6rem;
@@ -483,7 +483,7 @@ body {{
     font-style: italic;
 }}
 .art-summary {{
-    font-size: 0.78rem;
+    font-size: 0.88rem;
     color: var(--txt2);
     margin-top: 0.3rem;
     line-height: 1.5;
