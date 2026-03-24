@@ -22,6 +22,8 @@ SOURCE_GROUPS = {
     'Defense': ['Breaking Defense', 'Defense News', 'Defense One', 'DefenseScoop', 'Air & Space Forces', 'Space & Defense'],
     'Ars Technica': ['Ars Technica'],
     'The Information': ['The Information'],
+    'GlobeNewswire': ['GN Aerospace & Defense', 'GN Semiconductors', 'GN Energy'],
+    'IR': ['IR NVIDIA', 'IR Broadcom', 'IR Marvell', 'IR Lumentum', 'IR Coherent', 'IR Palantir', 'IR Rocket Lab', 'IR Bloom Energy', 'IR Planet Labs', 'IR Tesla', 'IR Cheniere'],
 }
 
 WORKER_URL = 'https://news-ratings.forbetterday.workers.dev'
