@@ -1,6 +1,14 @@
 {
   "TechCrunch": [
     {
+      "title": "Ultrahuman ramps up U.S. push with Ring Pro as Oura tightens its grip",
+      "link": "https://techcrunch.com/2026/03/24/ultrahuman-ramps-up-u-s-push-with-ring-pro-as-oura-tightens-grip/",
+      "pub_date": "2026년 03월 24일 19:00 KST",
+      "summary": "Ultrahuman pushes back into the U.S. with Ring Pro, as Oura strengthens its lead in a market driving 60% of global demand.",
+      "section": "TechCrunch",
+      "is_korean": false
+    },
+    {
       "title": "Delve halts demos, Insight Partners scrubs investment post amid ‘fake compliance’ allegations",
       "link": "https://techcrunch.com/2026/03/23/delve-halts-demos-insight-partners-scrubs-investment-post-amid-fake-compliance-allegations/",
       "pub_date": "2026년 03월 24일 14:26 KST",
@@ -151,14 +159,6 @@
       "summary": "In a letter to Defense Secretary Pete Hegseth, Senator Elizabeth Warren (D-MA) equated the DOD's decision to label Anthropic a \"supply-chain risk\" as retaliation, arguing that the Pentagon could simply have terminated its contract with the AI lab.",
       "section": "TechCrunch",
       "is_korean": false
-    },
-    {
-      "title": "FBI says Iranian hackers are using Telegram to steal data in malware attacks",
-      "link": "https://techcrunch.com/2026/03/23/fbi-says-iranian-hackers-are-using-telegram-to-steal-data-in-malware-attacks/",
-      "pub_date": "2026년 03월 24일 00:18 KST",
-      "summary": "Hackers working for Iran’s government are using Telegram in hacking operations that use malware to target dissidents, opposition groups, and journalists who oppose its regime, according to the FBI.",
-      "section": "TechCrunch",
-      "is_korean": false
     }
   ],
   "TC Startups": [
@@ -233,14 +233,6 @@
       "link": "https://techcrunch.com/2026/03/21/publisher-pulls-horror-novel-shy-girl-over-ai-concerns/",
       "pub_date": "2026년 03월 22일 04:30 KST",
       "summary": "Hachette Book Group said it will not be publishing “Shy Girl” over concerns that artificial intelligence was used to generate the text.",
-      "section": "TC AI",
-      "is_korean": false
-    },
-    {
-      "title": "Why Wall Street wasn’t won over by Nvidia’s big conference",
-      "link": "https://techcrunch.com/2026/03/21/why-wall-street-wasnt-won-over-by-nvidias-big-conference/",
-      "pub_date": "2026년 03월 22일 01:28 KST",
-      "summary": "Despite investor fears of an AI bubble, Nvidia's latest conference shows that most in the industry aren't concerned by that possibility.",
       "section": "TC AI",
       "is_korean": false
     }
@@ -336,6 +328,14 @@
     }
   ],
   "Space.com": [
+    {
+      "title": "NASA announcing update to Artemis moon plans today: Watch it live",
+      "link": "https://www.space.com/space-exploration/artemis/nasa-announcing-update-to-artemis-moon-plans-today-watch-it-live",
+      "pub_date": "2026년 03월 24일 19:00 KST",
+      "summary": "NASA will hold a series of events today (March 24) that update us on the agency's plans for the moon and more, and you can watch them live.",
+      "section": "Space.com",
+      "is_korean": false
+    },
     {
       "title": "Scientists find 2 'failed stars' that may have a second chance to shine bright — by getting together",
       "link": "https://www.space.com/astronomy/stars/scientists-find-2-failed-stars-that-may-have-a-second-chance-to-shine-bright-by-getting-together",
@@ -985,14 +985,6 @@
       "link": "https://www.theinformation.com/articles/tech-m-chilled-ai-inflation-fears",
       "pub_date": "2026년 03월 23일 00:06 KST",
       "summary": "<div><img src=\"https://tii.imgix.net/production/articles/16802/50cfa633-fb6a-430b-9262-b2d2aea6fd11.jpg?fm=jpg&amp;auto=compress&amp;w=1200&amp;frame=0\" style=\"width: 100%;\" /><div>This year hasn’t lived up to the high expectations of the bankers and lawyers that advise tech companies on acquisition",
-      "section": "The Information",
-      "is_korean": false
-    },
-    {
-      "title": "OpenAI’s First Advertisers Can’t Prove ChatGPT Ads Work",
-      "link": "https://www.theinformation.com/articles/openais-first-advertisers-prove-chatgpt-ads-work",
-      "pub_date": "2026년 03월 22일 01:00 KST",
-      "summary": "<div><img src=\"https://tii.imgix.net/production/articles/16801/906f7f75-82fc-41b4-a554-08bbd44178d1.png?fm=jpg&amp;auto=compress&amp;w=1200&amp;frame=0\" style=\"width: 100%;\" /><div>As OpenAI prepares to open up ad sales to more marketers next month, it is trying to address what some advertisers say ",
       "section": "The Information",
       "is_korean": false
     }
