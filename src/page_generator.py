@@ -31,7 +31,7 @@ INSIGHTS_PATH = 'docs/insights.json'
 
 # ★ Spotify 설정 - 본인 플레이리스트 ID로 교체하세요
 # 플레이리스트: /embed/playlist/ID  |  트랙: /embed/track/ID  |  앨범: /embed/album/ID
-SPOTIFY_EMBED_URL = 'https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator&theme=0'
+SPOTIFY_EMBED_URL = 'https://open.spotify.com/embed/playlist/2tjg5sKHNvPb2FgXEEXCg9?utm_source=generator&theme=0'
 
 
 def _make_article_id(link: str) -> str:
