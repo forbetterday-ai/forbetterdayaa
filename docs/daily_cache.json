@@ -1,6 +1,30 @@
 {
   "TechCrunch": [
     {
+      "title": "A ‘pound of flesh’ from data centers: one senator’s answer to AI job losses",
+      "link": "https://techcrunch.com/2026/03/26/a-pound-of-flesh-from-data-centers-one-senators-answer-to-ai-job-losses/",
+      "pub_date": "2026년 03월 26일 21:00 KST",
+      "summary": "Fears of AI-driven job loss are growing fast, and they’re fueling backlash against data centers. Sen. Mark Warner suggests taxing them to help workers survive the transition.",
+      "section": "TechCrunch",
+      "is_korean": false
+    },
+    {
+      "title": "Mistral releases a new open-source model for speech generation",
+      "link": "https://techcrunch.com/2026/03/26/mistral-releases-a-new-open-source-model-for-speech-generation/",
+      "pub_date": "2026년 03월 26일 20:30 KST",
+      "summary": "Mistral's new speech model can run on a smartwatch or a smartphone.",
+      "section": "TechCrunch",
+      "is_korean": false
+    },
+    {
+      "title": "A little-known Croatian startup is coming for the robotaxi market with help from Uber",
+      "link": "https://techcrunch.com/2026/03/26/a-little-known-croatian-startup-is-coming-for-the-robotaxi-market-with-help-from-uber/",
+      "pub_date": "2026년 03월 26일 17:15 KST",
+      "summary": "Verne, the robotaxi company launched under Rimac Group, is starting with a service in Zagreb, Croatia.",
+      "section": "TechCrunch",
+      "is_korean": false
+    },
+    {
       "title": "The least surprising chapter of the Manus story is what’s happening right now",
       "link": "https://techcrunch.com/2026/03/25/the-least-surprising-chapter-of-the-manus-story-is-whats-happening-right-now/",
       "pub_date": "2026년 03월 26일 11:46 KST",
@@ -135,13 +159,15 @@
       "summary": "Reddit will require suspected automated accounts to verify they’re human, as it ramps up efforts to curb bot-driven spam and manipulation.",
       "section": "TechCrunch",
       "is_korean": false
-    },
+    }
+  ],
+  "TC Startups": [
     {
       "title": "How soap opera-TikTok hybrids became a billion-dollar business",
       "link": "https://techcrunch.com/video/how-soap-opera-tiktok-hybrids-became-a-billion-dollar-business/",
       "pub_date": "2026년 03월 26일 00:30 KST",
       "summary": "Over the past few years, a new category of mobile apps has quietly exploded into&#160;a multi-billion dollar business.&#160;They&#8217;re&#160;called “micro dramas” — short-form, mobile-first scripted shows designed to be watched vertically on your phone. Think soap opera meets TikTok, complete with",
-      "section": "TechCrunch",
+      "section": "TC Startups",
       "is_korean": false
     },
     {
@@ -149,19 +175,9 @@
       "link": "https://techcrunch.com/2026/03/25/harvey-confirms-11b-valuation-sequoia-triples-down/",
       "pub_date": "2026년 03월 26일 00:27 KST",
       "summary": "Investors like Sequoia, Andreessen Horowitz,  Kleiner Perkins, and Elad Gil can't get enough of AI legal tech startup Harvey.",
-      "section": "TechCrunch",
+      "section": "TC Startups",
       "is_korean": false
     },
-    {
-      "title": "Granola raises $125M, hits $1.5B valuation as it expands from meeting notetaker to enterprise AI app",
-      "link": "https://techcrunch.com/2026/03/25/granola-raises-125m-hits-1-5b-valuation-as-it-expands-from-meeting-notetaker-to-enterprise-ai-app/",
-      "pub_date": "2026년 03월 25일 23:48 KST",
-      "summary": "Granola's valuation jumped from $250 million to $1.5 billion with this round, and it has added more support for AI agents after users previously complained.",
-      "section": "TechCrunch",
-      "is_korean": false
-    }
-  ],
-  "TC Startups": [
     {
       "title": "ReelShort made $1.2 billion on werewolf romances. Watch Club wants to do it better.",
       "link": "https://techcrunch.com/podcast/watch-club-microdramas/",
@@ -265,25 +281,17 @@
       "summary": "After a whistleblower alleged that the startup fabricated audit evidence, its prominent Series A investor removed an article detailing why it led the deal.",
       "section": "TC Startups",
       "is_korean": false
-    },
-    {
-      "title": "Bengaluru food delivery startup Swish raises $38M, its third round in 18 months",
-      "link": "https://techcrunch.com/2026/03/23/bengaluru-food-startup-swish-raises-38m-in-its-third-round-in-18-months/",
-      "pub_date": "2026년 03월 24일 08:30 KST",
-      "summary": "Swish has more than doubled its valuation in a year as its full-stack, hyperlocal model positions ultra-fast food delivery as a high-frequency habit.",
-      "section": "TC Startups",
-      "is_korean": false
-    },
-    {
-      "title": "Despite bitter rivalry, Kalshi, Polymarket CEOs back $35M predictions markets VC fund",
-      "link": "https://techcrunch.com/2026/03/23/despite-bitter-rivalry-kalshi-polymarket-ceos-back-35m-predictions-markets-vc-fund/",
-      "pub_date": "2026년 03월 24일 07:57 KST",
-      "summary": "As prediction markets explode, the new firm called 5(c) Capital, will back startups supporting the burgeoning category.",
-      "section": "TC Startups",
-      "is_korean": false
     }
   ],
   "TC AI": [
+    {
+      "title": "Granola raises $125M, hits $1.5B valuation as it expands from meeting notetaker to enterprise AI app",
+      "link": "https://techcrunch.com/2026/03/25/granola-raises-125m-hits-1-5b-valuation-as-it-expands-from-meeting-notetaker-to-enterprise-ai-app/",
+      "pub_date": "2026년 03월 25일 23:48 KST",
+      "summary": "Granola's valuation jumped from $250 million to $1.5 billion with this round, and it has added more support for AI agents after users previously complained.",
+      "section": "TC AI",
+      "is_korean": false
+    },
     {
       "title": "Meta launches new initiative to support entrepreneurship, drive AI adoption",
       "link": "https://techcrunch.com/2026/03/25/meta-launches-new-initiative-to-support-entrepreneurship-drive-ai-adoption/",
@@ -339,17 +347,17 @@
       "summary": "Anthropic’s new auto mode for Claude Code lets AI execute tasks with fewer approvals, reflecting a broader shift toward more autonomous tools that balance speed with safety through built-in safeguards.",
       "section": "TC AI",
       "is_korean": false
-    },
-    {
-      "title": "Spotify tests new tool to stop AI slop from being attributed to real artists",
-      "link": "https://techcrunch.com/2026/03/24/spotify-tests-new-tool-to-stop-ai-slop-from-being-attributed-to-real-artists/",
-      "pub_date": "2026년 03월 25일 05:56 KST",
-      "summary": "The idea behind the new tool is to give artists more control over which tracks are associated with their name on Spotify.",
-      "section": "TC AI",
-      "is_korean": false
     }
   ],
   "TC Venture": [
+    {
+      "title": "Despite bitter rivalry, Kalshi, Polymarket CEOs back $35M predictions markets VC fund",
+      "link": "https://techcrunch.com/2026/03/23/despite-bitter-rivalry-kalshi-polymarket-ceos-back-35m-predictions-markets-vc-fund/",
+      "pub_date": "2026년 03월 24일 07:57 KST",
+      "summary": "As prediction markets explode, the new firm called 5(c) Capital, will back startups supporting the burgeoning category.",
+      "section": "TC Venture",
+      "is_korean": false
+    },
     {
       "title": "Air Street becomes one of the largest solo VCs in Europe with $232M fund",
       "link": "https://techcrunch.com/2026/03/23/air-street-becomes-one-of-the-largest-solo-vcs-in-europe-with-232m-fund/",
@@ -357,17 +365,17 @@
       "summary": "London’s Air Street Capital has raised a large Fund III with eyes locked on backing early-stage European and North American AI companies.",
       "section": "TC Venture",
       "is_korean": false
-    },
-    {
-      "title": "Startup Gimlet Labs is solving the AI inference bottleneck in a surprisingly elegant way",
-      "link": "https://techcrunch.com/2026/03/23/startup-gimlet-labs-is-solving-the-ai-inference-bottleneck-in-a-surprisingly-elegant-way/",
-      "pub_date": "2026년 03월 24일 01:00 KST",
-      "summary": "Gimlet Labs just raised an $80 million Series A for tech that lets AI run across NVIDIA, AMD, Intel, ARM, Cerebras and d-Matrix chips, simultaneously.",
-      "section": "TC Venture",
-      "is_korean": false
     }
   ],
   "SpaceNews": [
+    {
+      "title": "NASA to test nuclear electric propulsion with 2028 mission to Mars",
+      "link": "https://spacenews.com/nasa-to-test-nuclear-electric-propulsion-with-2028-mission-to-mars/",
+      "pub_date": "2026년 03월 26일 20:24 KST",
+      "summary": "<figure><img alt=\"SR-1 Freedom\" class=\"attachment-rss-image-size size-rss-image-size wp-post-image\" height=\"552\" src=\"https://i0.wp.com/spacenews.com/wp-content/uploads/2026/03/sr-1-freedom.jpeg?fit=1024%2C552&amp;ssl=1\" width=\"1024\" /></figure>\n<p>NASA’s new exploration strategy includes the rapid ",
+      "section": "SpaceNews",
+      "is_korean": false
+    },
     {
       "title": "Space Force weighs launch alternatives as Vulcan faces potential months-long grounding",
       "link": "https://spacenews.com/space-force-weighs-launch-alternatives-as-vulcan-faces-potential-months-long-grounding/",
@@ -535,33 +543,33 @@
       "summary": "<figure><img alt=\"\" class=\"attachment-rss-image-size size-rss-image-size wp-post-image\" height=\"585\" src=\"https://i0.wp.com/spacenews.com/wp-content/uploads/2026/03/rsz_screenshot_2026-03-23_at_42429-pm.png?fit=879%2C585&amp;ssl=1\" width=\"879\" /></figure>\n<p>WASHINGTON – National missile warning and",
       "section": "SpaceNews",
       "is_korean": false
-    },
-    {
-      "title": "Space Force adds cyber units to guard rocket launches",
-      "link": "https://spacenews.com/space-force-adds-cyber-units-to-guard-rocket-launches/",
-      "pub_date": "2026년 03월 24일 06:37 KST",
-      "summary": "<figure><img alt=\"F9 launch\" class=\"attachment-rss-image-size size-rss-image-size wp-post-image\" height=\"602\" src=\"https://i0.wp.com/spacenews.com/wp-content/uploads/2026/01/f9-20260125.jpeg?fit=1024%2C602&amp;ssl=1\" width=\"1024\" /></figure>\n<p>&#8216;Cyber defense&#8217; squadrons at Cape Canaveral",
-      "section": "SpaceNews",
-      "is_korean": false
-    },
-    {
-      "title": "Amazon Leo targets faster deployment cadence as deadline pressure mounts",
-      "link": "https://spacenews.com/amazon-leo-targets-faster-deployment-cadence-as-deadline-pressure-mounts/",
-      "pub_date": "2026년 03월 24일 05:39 KST",
-      "summary": "<figure><img alt=\"\" class=\"attachment-rss-image-size size-rss-image-size wp-post-image\" height=\"576\" src=\"https://i0.wp.com/spacenews.com/wp-content/uploads/2026/03/Amazon-stack.jpeg?fit=1024%2C576&amp;ssl=1\" width=\"1024\" /></figure>\n<p>Amazon vowed to double the annual launch rate for its low Earth",
-      "section": "SpaceNews",
-      "is_korean": false
-    },
-    {
-      "title": "Parsons unveils new satellite antenna aimed at military market",
-      "link": "https://spacenews.com/parsons-unveils-new-satellite-antenna-aimed-at-military-market/",
-      "pub_date": "2026년 03월 24일 04:00 KST",
-      "summary": "<figure><img alt=\"\" class=\"attachment-rss-image-size size-rss-image-size wp-post-image\" height=\"800\" src=\"https://i0.wp.com/spacenews.com/wp-content/uploads/2026/03/e9994929-b57f-40f0-a78d-c96843a3e001.jpg.jpeg?fit=597%2C800&amp;ssl=1\" width=\"597\" /></figure>\n<p>Hybrid antenna developed by Parsons a",
-      "section": "SpaceNews",
-      "is_korean": false
     }
   ],
   "Space.com": [
+    {
+      "title": "These 45 exoplanets may be the best places to search for alien life",
+      "link": "https://www.space.com/astronomy/exoplanets/these-45-exoplanets-may-be-the-best-places-to-search-for-alien-life",
+      "pub_date": "2026년 03월 26일 21:00 KST",
+      "summary": "A new catalog of potentially habitable exoplanets provides the framework for future observations in the search for alien life.",
+      "section": "Space.com",
+      "is_korean": false
+    },
+    {
+      "title": "Aim for the stars for under $15 with this Estes 2441 Mini Arcas Model Rocket Kit at Walmart, now 17% cheaper in the spring sales",
+      "link": "https://www.space.com/entertainment/space-toys-lego/aim-for-the-stars-for-under-15-dollars-spring-sale-estes-model-rocket-march-2026",
+      "pub_date": "2026년 03월 26일 20:19 KST",
+      "summary": "Want to show your solidarity with the crew of the Artemis 2? Launch your own mini-mission with this anti-Amazon deal, saving 17% on this Estes 2411 hobby rocket.",
+      "section": "Space.com",
+      "is_korean": false
+    },
+    {
+      "title": "Lightning on Jupiter could be up to 1 million times stronger than on Earth",
+      "link": "https://www.space.com/astronomy/jupiter/lightning-on-jupiter-could-be-up-to-1-million-times-stronger-than-on-earth",
+      "pub_date": "2026년 03월 26일 19:00 KST",
+      "summary": "Lightning on Jupiter may pack more than 100 times the power of Earth's bolts, and may prove one million times stronger, a new study finds.",
+      "section": "Space.com",
+      "is_korean": false
+    },
     {
       "title": "Inside Artemis 2: NASA's historic astronaut moon mission explained (video series)",
       "link": "https://www.space.com/space-exploration/artemis/inside-artemis-2-nasas-historic-astronaut-moon-mission-explained-video-series",
@@ -579,10 +587,10 @@
       "is_korean": false
     },
     {
-      "title": "Jupiter and the moon take a sunset stroll on March 26. Here's how to see it",
+      "title": "Jupiter and the moon take a sunset stroll tonight. Here's how to see it",
       "link": "https://www.space.com/stargazing/jupiter-and-the-moon-take-a-sunset-stroll-tomorrow-heres-how-to-see-it-march-26-2026",
       "pub_date": "2026년 03월 26일 04:00 KST",
-      "summary": "The king of the planets meets a waxing half moon at sunset tomorrow.",
+      "summary": "The king of the planets meets a waxing half moon at sunset on March 26.",
       "section": "Space.com",
       "is_korean": false
     },
@@ -777,49 +785,17 @@
       "summary": "NASA will hold a series of events today (March 24) that update us on the agency's plans for the moon and more, and you can watch them live.",
       "section": "Space.com",
       "is_korean": false
-    },
-    {
-      "title": "Scientists find 2 'failed stars' that may have a second chance to shine bright — by getting together",
-      "link": "https://www.space.com/astronomy/stars/scientists-find-2-failed-stars-that-may-have-a-second-chance-to-shine-bright-by-getting-together",
-      "pub_date": "2026년 03월 24일 06:02 KST",
-      "summary": "\"Failed star\" brown dwarfs may get a second chance to shine by colliding and merging to birth a new star.",
-      "section": "Space.com",
-      "is_korean": false
-    },
-    {
-      "title": "10 major differences between the 'Project Hail Mary' book and movie",
-      "link": "https://www.space.com/entertainment/space-movies-shows/10-major-differences-between-the-project-hail-mary-book-and-movie",
-      "pub_date": "2026년 03월 24일 06:00 KST",
-      "summary": "Ryland Grace's world-saving adventure saw a few changes during the jump from the page to the screen; here are ten big differences we spotted.",
-      "section": "Space.com",
-      "is_korean": false
-    },
-    {
-      "title": "2nd-ever test flight of NASA's 'quiet' X-59 supersonic jet cut short by glitch",
-      "link": "https://www.space.com/technology/aerospace/2nd-ever-test-flight-of-nasas-quiet-x-59-supersonic-jet-cut-short-by-glitch",
-      "pub_date": "2026년 03월 24일 02:22 KST",
-      "summary": "NASA's \"quiet\" supersonic X-59 jet took to the skies for the second time ever on Friday (March 20), but it didn't stay up for long.",
-      "section": "Space.com",
-      "is_korean": false
-    },
-    {
-      "title": "Rare daytime fireball may have dropped meteorites on Texas: Here's where to find them",
-      "link": "https://www.space.com/stargazing/meteor-showers/rare-daytime-fireball-may-have-dropped-meteorites-on-texas-heres-where-to-find-them",
-      "pub_date": "2026년 03월 24일 01:59 KST",
-      "summary": "The fireball shattered with the force of 26 tons of TNT, potentially spreading shards over a swathe of Texas land.",
-      "section": "Space.com",
-      "is_korean": false
-    },
-    {
-      "title": "Astrophotographer spies Thor's Helmet shining 15,000 light-years away in spectacular photo",
-      "link": "https://www.space.com/stargazing/astrophotography/astrophotographer-spies-thors-helmet-shining-15-000-light-years-away-in-spectacular-photo",
-      "pub_date": "2026년 03월 24일 01:00 KST",
-      "summary": "A massive stellar wind bubble sculpts the nebula into the shape of the Norse god's famous helmet.",
-      "section": "Space.com",
-      "is_korean": false
     }
   ],
   "Payload Space": [
+    {
+      "title": "Lawmakers Question NASA’s Shifting Vision for CLDs",
+      "link": "https://payloadspace.com/lawmakers-question-nasas-shifting-vision-for-clds/",
+      "pub_date": "2026년 03월 26일 21:00 KST",
+      "summary": "<p><img alt=\"Image: NASA\" class=\"attachment-thumbnail size-thumbnail wp-post-image\" height=\"200\" src=\"https://payloadspace.com/wp-content/uploads/2026/03/G4x6I7KW8AAOofu-200x200.jpeg\" width=\"200\" />NASA Administrator Jared Isaacman proposed a new plan for America’s human presence in LEO that left ma",
+      "section": "Payload Space",
+      "is_korean": false
+    },
     {
       "title": "Commerce Unveils One-Stop Licensing Proposal For Novel Space Missions",
       "link": "https://payloadspace.com/commerce-unveils-one-stop-licensing-proposal-for-novel-space-missions/",
@@ -1091,6 +1067,22 @@
   ],
   "Defense News": [
     {
+      "title": "France to boost munitions spending by nearly $10 billion through 2030",
+      "link": "https://www.defensenews.com/global/europe/2026/03/26/france-to-boost-munitions-spending-by-nearly-10-billion-through-2030/",
+      "pub_date": "2026년 03월 26일 21:12 KST",
+      "summary": "The country plans to set up a platform called France Munitions that will serve as an ammunition wholesaler for France, allies and export clients.",
+      "section": "Defense News",
+      "is_korean": false
+    },
+    {
+      "title": "Europe can’t rely on US for air-defense missiles, top EU official says",
+      "link": "https://www.defensenews.com/global/europe/2026/03/26/europe-cant-rely-on-us-for-air-defense-missiles-top-eu-official-says/",
+      "pub_date": "2026년 03월 26일 19:15 KST",
+      "summary": "Kubilius is on a “missile tour” of Europe to discuss with manufacturers how the European Commission can help with missile production.",
+      "section": "Defense News",
+      "is_korean": false
+    },
+    {
       "title": "US Army Special Operations Command takes home top prize in sniper competition",
       "link": "https://www.defensenews.com/news/your-military/2026/03/25/us-army-special-operations-command-takes-home-top-prize-in-sniper-competition/",
       "pub_date": "2026년 03월 26일 08:15 KST",
@@ -1209,33 +1201,17 @@
       "summary": "U.S. President Donald Trump has characterized an operation to unblock the economically vital passage as too simplistic, according to issue experts.",
       "section": "Defense News",
       "is_korean": false
-    },
-    {
-      "title": "A web of sensors: How the US spots missiles and drones from Iran",
-      "link": "https://www.defensenews.com/opinion/commentary/2026/03/23/a-web-of-sensors-how-the-us-spots-missiles-and-drones-from-iran/",
-      "pub_date": "2026년 03월 24일 04:27 KST",
-      "summary": "If a missile is launched from Iran toward a U.S. military base in the region, how do service members know in time to stay safe?",
-      "section": "Defense News",
-      "is_korean": false
-    },
-    {
-      "title": "US and UK teaming up to destroy underwater drones",
-      "link": "https://www.defensenews.com/naval/2026/03/23/us-and-uk-teaming-up-to-destroy-underwater-drones/",
-      "pub_date": "2026년 03월 24일 03:41 KST",
-      "summary": "America and Britain are joining forces to tackle the threat of underwater drones to ports and other critical infrastructure.",
-      "section": "Defense News",
-      "is_korean": false
-    },
-    {
-      "title": "The US Army is already ditching its most powerful laser weapon yet",
-      "link": "https://www.defensenews.com/industry/techwatch/2026/03/23/the-us-army-is-already-ditching-its-most-powerful-laser-weapon-yet/",
-      "pub_date": "2026년 03월 24일 02:14 KST",
-      "summary": "The U.S. Army’s 300 kilowatt Indirect Fire Protection Capability-High Energy Laser system won't transition to a program of record.",
-      "section": "Defense News",
-      "is_korean": false
     }
   ],
   "Defense One": [
+    {
+      "title": "The Army wants to use bullets, mortars, and artillery rounds to take out small drones",
+      "link": "https://www.defenseone.com/technology/2026/03/army-wants-use-bullets-mortars-and-artillery-rounds-take-out-small-drones/412392/",
+      "pub_date": "2026년 03월 26일 16:41 KST",
+      "summary": "How existing systems are being shaped to shoot at tiny targets.",
+      "section": "Defense One",
+      "is_korean": false
+    },
     {
       "title": "Will too much AI weaken troops' judgement?",
       "link": "https://www.defenseone.com/technology/2026/03/military-ai-troops-judgement/412390/",
@@ -1307,22 +1283,6 @@
       "summary": "President says Hormuz would be under \"joint control,\" removing uranium would be \"very easy.\"",
       "section": "Defense One",
       "is_korean": false
-    },
-    {
-      "title": "Mullin takes DHS helm as 100,000 employees remain unpaid",
-      "link": "https://www.defenseone.com/policy/2026/03/mullin-dhs-shutdown-employees-unpaid/412320/",
-      "pub_date": "2026년 03월 24일 09:45 KST",
-      "summary": "Senator vows reforms, staffing rebuild as he steps into his first executive-branch job.",
-      "section": "Defense One",
-      "is_korean": false
-    },
-    {
-      "title": "KC-135 crash in Iraq spurs calls for communications upgrades",
-      "link": "https://www.defenseone.com/defense-systems/2026/03/it-keeps-me-night-kc-135-crash-underscores-necessary-comms-upgrades-leaders-say/412317/",
-      "pub_date": "2026년 03월 24일 06:56 KST",
-      "summary": "Almost half of the Air Force's oldest tanker fleet lacks real-time battlefield connectivity systems.",
-      "section": "Defense One",
-      "is_korean": false
     }
   ],
   "DefenseScoop": [
@@ -1387,22 +1347,6 @@
       "link": "https://defensescoop.com/2026/03/23/marine-eod-techs-team-with-robots-alaskan-waters/",
       "pub_date": "2026년 03월 24일 07:59 KST",
       "summary": "<p>\"Anytime I can get an unmanned system, even though it may be expensive, it doesn't come with a name and a family tied to it,” one tech said. “I’ll put that in the water first.”</p>\n<p>The post <a href=\"https://defensescoop.com/2026/03/23/marine-eod-techs-team-with-robots-alaskan-waters/\">Marine E",
-      "section": "DefenseScoop",
-      "is_korean": false
-    },
-    {
-      "title": "How Transcom is handling medical evacuations and planning for Operation Epic Fury",
-      "link": "https://defensescoop.com/2026/03/23/iran-war-medevac-operation-epic-fury/",
-      "pub_date": "2026년 03월 24일 05:53 KST",
-      "summary": "<p>The command “stands ready to swiftly move wounded, ill and injured personnel to life-saving care anywhere in the world,” a spokesperson said.</p>\n<p>The post <a href=\"https://defensescoop.com/2026/03/23/iran-war-medevac-operation-epic-fury/\">How Transcom is handling medical evacuations and planni",
-      "section": "DefenseScoop",
-      "is_korean": false
-    },
-    {
-      "title": "Army buys Red Dragon long-range attack drones",
-      "link": "https://defensescoop.com/2026/03/23/army-buys-red-dragon-drones-aerovironment/",
-      "pub_date": "2026년 03월 24일 03:42 KST",
-      "summary": "<p>The service also awarded AeroVironment another contract for its P550 reconnaissance drone.</p>\n<p>The post <a href=\"https://defensescoop.com/2026/03/23/army-buys-red-dragon-drones-aerovironment/\">Army buys Red Dragon long-range attack drones</a> appeared first on <a href=\"https://defensescoop.com",
       "section": "DefenseScoop",
       "is_korean": false
     }
@@ -1678,6 +1622,14 @@
     }
   ],
   "The Information": [
+    {
+      "title": "Exclusive From The Electric: Two Electric Aviation Startups Attempt to Jump Ahead of Rivals",
+      "link": "https://www.theinformation.com/newsletters/the-electric/exclusive-electric-two-electric-aviation-startups-attempt-jump-ahead-rivals",
+      "pub_date": "2026년 03월 26일 20:30 KST",
+      "summary": "<div><img src=\"https://tii.imgix.net/production/articles/16824/1e01f0ef-ea52-4d9d-9516-a888c468727a-teimfX.jpeg?fm=jpg&amp;auto=compress&amp;w=1200&amp;frame=0\" style=\"width: 100%;\" /><div>The Iran war seems likely to scotch the plans of U.S. electric aviation startups to launch their first commerci",
+      "section": "The Information",
+      "is_korean": false
+    },
     {
       "title": "Meta’s Future Value and the Social Media Verdict",
       "link": "https://www.theinformation.com/newsletters/the-briefing/metas-future-value-social-media-verdict",
