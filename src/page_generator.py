@@ -740,13 +740,6 @@ body {{
     <div id="newsView">
         {articles_html if total_articles > 0 else '<div style="text-align:center;padding:4rem 0;color:var(--txt3);">📭 수집된 기사가 없습니다.</div>'}
     </div>
-    <div id="insightView">
-        {insights_html}
-    </div>
-    <div id="archiveView" style="display:none;">
-        <div id="archiveList"></div>
-        <div id="archiveEmpty" style="text-align:center;padding:4rem 0;color:var(--txt3);">📌 아직 보관한 기사가 없습니다.<br><span style="font-size:0.75rem">기사에 별점을 주면 자동으로 보관됩니다.</span></div>
-    </div>
 </main>
 <footer class="footer">
     <div class="footer-text">Daily News Brief · Premium: 매시간 (KST 7~23시) · Daily: KST 07:00 / 21:00 · 주간 리포트: 일요일 21:30</div>
