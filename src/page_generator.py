@@ -719,9 +719,8 @@ body {{
     <span class="sb-total">총 {total_articles}개 기사</span>
     <hr class="sb-divider">
     <div class="tab-bar">
-        <button class="tab-btn active" onclick="switchTab('news')">📰 뉴스</button>
-        <button class="tab-btn" onclick="switchTab('insight')">💡 인사이트</button>
-        <button class="tab-btn" onclick="switchTab('archive')">📌 보관함</button>
+        <a href="index.html" class="tab-btn active" style="text-decoration:none;text-align:center;">📰 뉴스</a>
+        <a href="investor-journey.html" class="tab-btn" style="text-decoration:none;text-align:center;">❤️ 초보 투자자 성장기</a>
     </div>
     <a href="investor-journey.html" style="display:block;text-align:center;margin:0.5rem 0;font-family:'JetBrains Mono',monospace;font-size:0.7rem;padding:0.45rem;border:1px solid rgba(255,255,255,0.1);border-radius:5px;color:#8890a4;text-decoration:none;" onmouseover="this.style.background='rgba(212,160,23,0.15)';this.style.color='#d4a017'" onmouseout="this.style.background='transparent';this.style.color='#8890a4'">📚 초보 투자자 성장기</a>
     <div id="newsFilters">
