@@ -1,5 +1,5 @@
 {
-  "title": "초보 투자자 성장기",
+  "title": "보미 초보 투자자 성장기",
   "description": "투자 공부를 차근차근히 하여 성장하는 중 입니다.",
   "posts": [
     {
@@ -17,6 +17,14 @@
       "description": "AI 시대의 진짜 수혜자를 찾는 투자 관점",
       "artifact_url": "https://claude.site/public/artifacts/627eff86-0fc5-4d06-a7bf-9b087941de31/embed",
       "tags": ["AI", "반도체", "13강"]
+    }
+    {
+      "id": 3,
+      "date": "2026-03-27",
+      "title": "13-3강: GPU 너머의 투자 지도 — AI에게도 몸이 필요하다",
+      "description": "두뇌만 있으면 사람이 되나? — AI가 작동하려면 몸 전체가 필요하다",
+      "artifact_url": "https://claude.site/public/artifacts/5451ff8b-f274-4c7d-a30a-b1ccb98efc13/embed",
+      "tags": ["메모리", "패키징", "신경망"]
     }
   ]
 }
