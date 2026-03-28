@@ -1,5 +1,5 @@
 """
-데일리 뉴스 브리핑 웹페이지 생성 모듈 - 시간순 정렬 + 소스태그 + 별점 + 인사이트 + Spotify Player
+데일리 뉴스 브리핑 웹페이지 생성 모듈 - 시간순 정렬 + 소스태그 + 별점 + Spotify Player
 """
 import os
 import re
@@ -27,10 +27,8 @@ SOURCE_GROUPS = {
 }
 
 WORKER_URL = 'https://news-ratings.forbetterday.workers.dev'
-INSIGHTS_PATH = 'docs/insights.json'
 
-# ★ Spotify 설정 - 본인 플레이리스트 ID로 교체하세요
-# 플레이리스트: /embed/playlist/ID  |  트랙: /embed/track/ID  |  앨범: /embed/album/ID
+# ★ Spotify 설정
 SPOTIFY_EMBED_URL = 'https://open.spotify.com/embed/playlist/2tjg5sKHNvPb2FgXEEXCg9?utm_source=generator&theme=0'
 
 
@@ -61,109 +59,6 @@ def _sort_key(article):
     return '0'
 
 
-def _load_insights() -> dict:
-    try:
-        if os.path.exists(INSIGHTS_PATH):
-            with open(INSIGHTS_PATH, 'r', encoding='utf-8') as f:
-                return json.load(f)
-    except Exception as e:
-        logger.warning(f"인사이트 로드 실패: {e}")
-    return {'daily': [], 'weekly': []}
-
-
-def _markdown_to_html(text: str) -> str:
-    """간단한 마크다운 → HTML 변환"""
-    lines = text.split('\n')
-    html_lines = []
-    in_list = False
-
-    for line in lines:
-        stripped = line.strip()
-        if not stripped:
-            if in_list:
-                html_lines.append('</ul>')
-                in_list = False
-            html_lines.append('<br>')
-            continue
-
-        if stripped.startswith('### '):
-            if in_list:
-                html_lines.append('</ul>')
-                in_list = False
-            html_lines.append(f'<h4 class="insight-h4">{stripped[4:]}</h4>')
-        elif stripped.startswith('## '):
-            if in_list:
-                html_lines.append('</ul>')
-                in_list = False
-            html_lines.append(f'<h3 class="insight-h3">{stripped[3:]}</h3>')
-        elif stripped.startswith('# '):
-            if in_list:
-                html_lines.append('</ul>')
-                in_list = False
-            html_lines.append(f'<h2 class="insight-h2">{stripped[2:]}</h2>')
-        elif stripped.startswith('- ') or stripped.startswith('* '):
-            if not in_list:
-                html_lines.append('<ul class="insight-list">')
-                in_list = True
-            content = stripped[2:]
-            content = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', content)
-            html_lines.append(f'<li>{content}</li>')
-        elif re.match(r'^\d+\.', stripped):
-            if not in_list:
-                html_lines.append('<ul class="insight-list">')
-                in_list = True
-            content = re.sub(r'^\d+\.\s*', '', stripped)
-            content = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', content)
-            html_lines.append(f'<li>{content}</li>')
-        else:
-            if in_list:
-                html_lines.append('</ul>')
-                in_list = False
-            stripped = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', stripped)
-            html_lines.append(f'<p class="insight-p">{stripped}</p>')
-
-    if in_list:
-        html_lines.append('</ul>')
-
-    return '\n'.join(html_lines)
-
-
-def _generate_insights_html(insights: dict) -> str:
-    daily_list = sorted(insights.get('daily', []), key=lambda x: x.get('date', ''), reverse=True)
-    weekly_list = sorted(insights.get('weekly', []), key=lambda x: x.get('date', ''), reverse=True)
-
-    if not daily_list and not weekly_list:
-        return '<div class="insight-empty">📊 아직 인사이트가 없습니다.<br><span style="font-size:0.75rem">기사에 별점을 주면 자동으로 생성됩니다.</span></div>'
-
-    html = ''
-
-    if weekly_list:
-        latest_weekly = weekly_list[0]
-        html += f'''<div class="insight-card weekly">
-<div class="insight-badge">📊 주간 리포트</div>
-<div class="insight-date">{latest_weekly.get('date', '')} · {latest_weekly.get('article_count', 0)}개 기사 분석</div>
-<div class="insight-content">{_markdown_to_html(latest_weekly.get('content', ''))}</div>
-</div>'''
-
-    for insight in daily_list[:7]:
-        html += f'''<div class="insight-card daily">
-<div class="insight-badge">💡 일간 트렌드</div>
-<div class="insight-date">{insight.get('date', '')} {insight.get('time', '')} · {insight.get('article_count', 0)}개 ⭐ 기사</div>
-<div class="insight-content">{_markdown_to_html(insight.get('content', ''))}</div>
-</div>'''
-
-    if len(weekly_list) > 1:
-        html += '<div class="insight-divider">이전 주간 리포트</div>'
-        for w in weekly_list[1:4]:
-            html += f'''<div class="insight-card weekly old">
-<div class="insight-badge">📊 주간 리포트</div>
-<div class="insight-date">{w.get('date', '')} · {w.get('article_count', 0)}개 기사 분석</div>
-<div class="insight-content">{_markdown_to_html(w.get('content', ''))}</div>
-</div>'''
-
-    return html
-
-
 def generate_briefing_page(articles_by_section: dict):
     now = datetime.now(KST)
     date_str = now.strftime('%Y년 %m월 %d일')
@@ -171,9 +66,6 @@ def generate_briefing_page(articles_by_section: dict):
     weekday_map = {0: '월', 1: '화', 2: '수', 3: '목', 4: '금', 5: '토', 6: '일'}
     weekday = weekday_map[now.weekday()]
     total_articles = sum(len(v) for v in articles_by_section.values())
-
-    insights = _load_insights()
-    insights_html = _generate_insights_html(insights)
 
     status = get_feed_status()
     unavailable_feeds = [k for k, v in status.items() if v in ('unavailable', 'error')]
@@ -442,21 +334,8 @@ body {{
     padding: 1.5rem 2rem 4rem;
     min-height: 100vh;
 }}
-#newsView, #insightView {{ }}
-#insightView {{ display: none; }}
 .section-group {{ margin-bottom: 2rem; }}
 .section-group.hidden {{ display: none; }}
-.section-label {{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.68rem;
-    font-weight: 500;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    padding: 0.4rem 0;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 0.4rem;
-}}
 .art-card {{
     display: block;
     padding: 0.7rem 0.8rem;
@@ -469,8 +348,6 @@ body {{
 .art-card:hover {{
     background: var(--bg4);
     border-color: var(--border);
-}}
-.art-card.watchlist {{
 }}
 .art-card.hidden {{ display: none; }}
 .art-card.rated-dislike {{ opacity: 0.35; }}
@@ -534,7 +411,6 @@ body {{
     font-size: 0.73rem;
     color: var(--txt3);
 }}
-/* Rating Bar */
 .rating-bar {{
     display: flex;
     align-items: center;
@@ -568,133 +444,6 @@ body {{
     transition: opacity 0.3s ease;
 }}
 .rate-status.show {{ opacity: 1; }}
-/* Insight Styles */
-/* Archive Styles */
-.archive-card {{
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 0.7rem 0.8rem;
-    margin-bottom: 0.5rem;
-}}
-.archive-head {{
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-    margin-bottom: 0.3rem;
-}}
-.archive-star {{ font-size: 0.75rem; }}
-.archive-title {{
-    display: block;
-    font-size: 0.92rem;
-    font-weight: 500;
-    color: var(--txt);
-    text-decoration: none;
-    line-height: 1.45;
-}}
-.archive-title:hover {{ color: var(--accent); }}
-.archive-meta {{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 0.4rem;
-}}
-.archive-date {{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--txt3);
-}}
-.archive-del {{
-    font-size: 0.65rem;
-    color: var(--dislike);
-    background: transparent;
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 0.15rem 0.5rem;
-    cursor: pointer;
-}}
-.archive-del:hover {{ background: rgba(153,153,153,0.15); color: var(--wl); border-color: var(--wl); }}
-.insight-empty {{
-    text-align: center;
-    padding: 4rem 0;
-    color: var(--txt3);
-    font-size: 0.9rem;
-}}
-.insight-card {{
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 1.2rem 1.5rem;
-    margin-bottom: 1.2rem;
-}}
-.insight-card.weekly {{ border-left: 3px solid var(--accent); }}
-.insight-card.daily {{ border-left: 3px solid var(--star2); }}
-.insight-card.old {{ opacity: 0.7; }}
-.insight-badge {{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    font-weight: 500;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    margin-bottom: 0.3rem;
-}}
-.insight-date {{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--txt3);
-    margin-bottom: 0.8rem;
-}}
-.insight-content {{
-    font-size: 0.82rem;
-    line-height: 1.7;
-    color: var(--txt);
-}}
-.insight-h2 {{
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--accent);
-    margin: 1rem 0 0.4rem;
-    padding-bottom: 0.3rem;
-    border-bottom: 1px solid var(--border);
-}}
-.insight-h3 {{
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--txt);
-    margin: 0.8rem 0 0.3rem;
-}}
-.insight-h4 {{
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--txt2);
-    margin: 0.6rem 0 0.2rem;
-}}
-.insight-p {{ margin-bottom: 0.4rem; }}
-.insight-list {{
-    list-style: none;
-    margin: 0.3rem 0 0.6rem;
-}}
-.insight-list li {{
-    padding: 0.2rem 0 0.2rem 1rem;
-    position: relative;
-    font-size: 0.8rem;
-}}
-.insight-list li::before {{
-    content: '▸';
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-}}
-.insight-divider {{
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--txt3);
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    padding: 1rem 0 0.5rem;
-    border-top: 1px solid var(--border);
-    margin-top: 1rem;
-}}
 .footer {{
     margin-left: var(--sidebar-w);
     border-top: 1px solid var(--border);
@@ -804,7 +553,7 @@ body {{
     </div>
 </main>
 <footer class="footer">
-    <div class="footer-text">Daily News Brief · Premium: 매시간 (KST 7~23시) · Daily: KST 07:00 / 21:00 · 주간 리포트: 일요일 21:30</div>
+    <div class="footer-text">Daily News Brief · Premium: 매시간 (KST 7~23시) · Daily: KST 07:00 / 21:00</div>
 </footer>
 
 <!-- ★ Spotify 하단 고정 플레이어 -->
@@ -836,70 +585,6 @@ document.addEventListener('DOMContentLoaded', loadRatings);
         document.body.style.paddingBottom = bar.classList.contains('collapsed') ? '0' : 'var(--player-h)';
     }});
 }})();
-
-function switchTab(tab) {{
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-    document.getElementById('newsView').style.display = 'none';
-    document.getElementById('insightView').style.display = 'none';
-    document.getElementById('archiveView').style.display = 'none';
-    document.getElementById('newsFilters').style.display = 'none';
-    if (tab === 'news') {{
-        document.getElementById('newsView').style.display = '';
-        document.getElementById('newsFilters').style.display = '';
-    }} else if (tab === 'insight') {{
-        document.getElementById('insightView').style.display = '';
-    }} else if (tab === 'archive') {{
-        document.getElementById('archiveView').style.display = '';
-        renderArchive();
-    }}
-}}
-
-function renderArchive() {{
-    const list = document.getElementById('archiveList');
-    const empty = document.getElementById('archiveEmpty');
-    const rated = Object.entries(ratingsCache).filter(([id, info]) => info.rating !== 'dislike');
-    if (rated.length === 0) {{
-        list.innerHTML = '';
-        empty.style.display = '';
-        return;
-    }}
-    empty.style.display = 'none';
-    const starMap = {{ star1: '⭐', star2: '⭐⭐', star3: '⭐⭐⭐' }};
-    const sorted = rated.sort((a, b) => (b[1].ratedAt || '').localeCompare(a[1].ratedAt || ''));
-    list.innerHTML = sorted.map(([id, info]) => `<div class="archive-card" id="arc-${{id}}">
-<div class="archive-head">
-<span class="archive-star">${{starMap[info.rating] || '⭐'}}</span>
-<span class="source-tag">${{info.source || ''}}</span>
-${{info.watchlistItem ? `<span class="wl-badge">★ ${{info.watchlistItem}}</span>` : ''}}
-</div>
-<a href="${{info.link || '#'}}" target="_blank" class="archive-title">${{info.title || '제목 없음'}}</a>
-<div class="archive-meta">
-<span class="archive-date">${{(info.ratedAt || '').slice(0, 10)}}</span>
-<button class="archive-del" onclick="deleteRating('${{id}}')">삭제</button>
-</div>
-</div>`).join('');
-}}
-
-async function deleteRating(articleId) {{
-    if (!confirm('이 기사를 보관함에서 삭제할까요?')) return;
-    try {{
-        const res = await fetch(WORKER_URL + '/delete-rate', {{
-            method: 'POST',
-            headers: {{ 'Content-Type': 'application/json' }},
-            body: JSON.stringify({{ articleId }}),
-        }});
-        if (res.ok) {{
-            delete ratingsCache[articleId];
-            const bar = document.querySelector(`.rating-bar[data-article-id="${{articleId}}"]`);
-            if (bar) bar.querySelectorAll('.rate-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('arc-' + articleId)?.remove();
-            updateRatingStats();
-            const rated = Object.entries(ratingsCache).filter(([id, info]) => info.rating !== 'dislike');
-            if (rated.length === 0) document.getElementById('archiveEmpty').style.display = '';
-        }}
-    }} catch (e) {{ alert('삭제 실패: ' + e.message); }}
-}}
 
 async function loadRatings() {{
     try {{
