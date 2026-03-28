@@ -159,7 +159,7 @@ def generate_briefing_page(articles_by_section: dict):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daily News Brief - {date_str}</title>
+<title>투자자 성장기 - {date_str}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -524,7 +524,7 @@ body {{
 </head>
 <body>
 <aside class="sidebar">
-    <div class="sb-brand">Daily News Brief</div>
+    <div class="sb-brand">투자자 성장기</div>
     <div class="sb-sub">FT · Bloomberg · Reuters · WSJ<br>TechCrunch · Space · Defense</div>
     <div class="sb-info">{weekday}요일 · {date_str}</div>
     <div class="sb-info">업데이트 {time_str} KST</div>
@@ -553,7 +553,7 @@ body {{
     </div>
 </main>
 <footer class="footer">
-    <div class="footer-text">Daily News Brief · Premium: 매시간 (KST 7~23시) · Daily: KST 07:00 / 21:00</div>
+    <div class="footer-text">투자자 성장기 · Premium: 매시간 (KST 7~23시) · Daily: KST 07:00 / 21:00</div>
 </footer>
 
 <!-- ★ Spotify 하단 고정 플레이어 -->
