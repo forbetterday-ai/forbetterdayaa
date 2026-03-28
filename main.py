@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
 Daily News Brief 자동화 - 메인 오케스트레이션
-Phase 3: 인사이트 자동 생성 포함
 """
 import argparse
 import sys
@@ -177,7 +176,7 @@ def daily_mode():
         logger.info("=" * 60)
 
         # 1단계: RSS 수집
-        logger.info("\n[1/6] RSS 수집 중...")
+        logger.info("\n[1/5] RSS 수집 중...")
         articles_by_section = fetch_ft_rss()
         if not articles_by_section:
             logger.error("수집된 기사가 없습니다.")
@@ -185,7 +184,7 @@ def daily_mode():
         logger.info(get_articles_summary(articles_by_section))
 
         # 2단계: Dislike 필터링
-        logger.info("[2/6] Dislike 필터링 중...")
+        logger.info("[2/5] Dislike 필터링 중...")
         ratings = load_ratings()
         if ratings:
             dislike_patterns = get_dislike_patterns(ratings)
@@ -194,26 +193,23 @@ def daily_mode():
             logger.info("  → 평가 데이터 없음 (필터링 스킵)")
 
         # 3단계: 캐시 확인
-        logger.info("[3/6] 캐시 확인 중...")
+        logger.info("[3/5] 캐시 확인 중...")
         cache = load_cache()
         cached_sections, new_sections = apply_cache(articles_by_section, cache)
 
         # 4단계: 번역
         if new_sections:
             total_new = sum(len(v) for v in new_sections.values())
-            logger.info(f"[4/6] 신규 {total_new}개 기사 번역 중...")
+            logger.info(f"[4/5] 신규 {total_new}개 기사 번역 중...")
             translated_sections = translate_articles(new_sections)
         else:
-            logger.info("[4/6] 신규 번역 대상 없음 (모두 캐시)")
+            logger.info("[4/5] 신규 번역 대상 없음 (모두 캐시)")
             translated_sections = {}
 
         all_articles = merge_sections(cached_sections, translated_sections)
 
-        # 5단계: 인사이트 생성 (비활성화 - API 비용 절약)
-        logger.info("[5/6] 인사이트 생성 스킵")
-
-        # 6단계: 웹페이지 생성
-        logger.info("[6/6] 브리핑 웹페이지 생성 중...")
+        # 5단계: 웹페이지 생성
+        logger.info("[5/5] 브리핑 웹페이지 생성 중...")
         page_path = generate_briefing_page(all_articles)
         if page_path:
             logger.info(f"✅ 웹페이지 생성 완료: {page_path}")
@@ -230,42 +226,9 @@ def daily_mode():
         return False
 
 
-def weekly_mode():
-    """주간 리포트 생성 (일요일)"""
-    try:
-        logger.info("=" * 60)
-        logger.info(f"주간 인사이트 리포트 생성 - {datetime.now(KST)}")
-        logger.info("=" * 60)
-
-        from src.insight_generator import run_weekly_insight
-        run_weekly_insight()
-
-        # 웹페이지 재생성 (인사이트 포함)
-        logger.info("웹페이지 재생성 중...")
-        cache = load_cache()
-        if cache:
-            # 캐시에서 기사 복원
-            articles_by_section = {}
-            for link, article in cache.items():
-                section = article.get('section', '기타')
-                if section not in articles_by_section:
-                    articles_by_section[section] = []
-                articles_by_section[section].append(article)
-            generate_briefing_page(articles_by_section)
-
-        logger.info("=" * 60)
-        logger.info("✅ 주간 리포트 완료!")
-        logger.info("=" * 60)
-        return True
-
-    except Exception as e:
-        logger.error(f"주간 리포트 실패: {str(e)}", exc_info=True)
-        return False
-
-
 def main():
     parser = argparse.ArgumentParser(description="Daily News Brief 자동화 시스템")
-    parser.add_argument('--mode', choices=['daily', 'weekly'], default='daily')
+    parser.add_argument('--mode', choices=['daily'], default='daily')
     args = parser.parse_args()
 
     from config.config import CLAUDE_API_KEY
@@ -273,8 +236,6 @@ def main():
         logger.error("❌ CLAUDE_API_KEY 환경변수가 설정되지 않았습니다.")
         return False
 
-    if args.mode == 'weekly':
-        return weekly_mode()
     return daily_mode()
 
 
